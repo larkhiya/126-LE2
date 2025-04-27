@@ -1,0 +1,146 @@
+h1,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: #d77676;
+  text-align: center;
+  font-family: "PP Editorial New";
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.09rem;
+}
+
+h2 {
+  color: #fff;
+  font-family: Inter;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.03rem;
+  margin: 0;
+}
+
+p {
+  color: #683737;
+  text-align: center;
+  font-family: Inter;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.875rem;
+  letter-spacing: -0.03375rem;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.banner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  align-self: stretch;
+  background: #fbf5f1;
+}
+
+.banner h1 {
+  padding: 2.5rem 0rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  color: #683737;
+}
+
+.home-shelf {
+  display: flex;
+  padding: 2.5rem 0rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2.5rem;
+}
+
+.shelf-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.625rem;
+}
+
+.book-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+@media screen and (max-width: 767px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  p {
+    line-height: normal;
+    font-size: 0.875rem;
+    letter-spacing: -0.02625rem;
+  }
+
+  .banner {
+    padding: 1.25rem 1.25rem 0rem 1.25rem;
+    gap: 1.25rem;
+    justify-content: center;
+  }
+
+  .banner h1 {
+    font-size: 1.125rem;
+    letter-spacing: -0.03375rem;
+    padding: 0;
+  }
+
+  .book-row {
+    gap: 0.625rem;
+    overflow-x: auto;
+    max-width: calc(100vw - 2.5rem);
+  }
+
+  .home-shelf {
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .banner img {
+    width: 6.6875rem;
+    height: 6.8125rem;
+  }
+
+  #readr {
+    display: none;
+  }
+}
+
+@media (min-width: 767px) and (max-width: 1023px) {
+  .home-shelf {
+    padding: 2.5rem;
+    align-items: flex-start;
+  }
+
+  .book-row {
+    overflow-x: auto;
+    max-width: calc(100vw - 4.5rem);
+  }
+
+  #readr {
+    display: none;
+  }
+}

@@ -1,0 +1,21 @@
+.navitem {
+  padding: 1.5rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+
+@media screen and (max-width: 768px) {
+
+  .navitem {
+    padding: 0.9375rem;
+  }
+
+}
+
+@media screen and (min-width: 1023px) {
+  .navitem:hover {
+    color: #683737;
+    background-color: #fff3c9;
+  }
+}
