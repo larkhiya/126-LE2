@@ -4,18 +4,32 @@
   text-decoration: none;
 }
 
+.nav-img {
+  width: auto;
+  height: 3rem;
+}
 
-@media screen and (max-width: 768px) {
-
+@media screen and (max-width: 767px) {
   .navitem {
     padding: 0.9375rem;
   }
 
+  .nav-img {
+    height: 2rem;
+  }
 }
 
-@media screen and (min-width: 1023px) {
+@media screen and (min-width: 768px) and (max-width: 1023px){
+  .nav-img {
+    height: 2rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
   .navitem:hover {
     color: #683737;
     background-color: #fff3c9;
   }
+
+  
 }

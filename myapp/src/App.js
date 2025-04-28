@@ -1,15 +1,22 @@
-import logo from "./logo.svg";
+import ReactDOM from "react-dom/client";
 import "./App.css";
-import NavBar from "./Screens/components/AppBar.js";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NavBar from "./Screens/components/NavBar.js";
 import Discover from "./Screens/DiscoverPage.js";
 import Home from "./Screens/HomePage.js";
 
 function App() {
   return (
-    <div>
-      <NavBar isSignedIn={true} />
-      <Home />
-    </div>
+    <>
+      <BrowserRouter>
+        <NavBar isSignedIn={true} />
+        <Routes>
+          <Route path="/" element={<Home />}/>
+         
+          <Route path="/discover" element={<Discover />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

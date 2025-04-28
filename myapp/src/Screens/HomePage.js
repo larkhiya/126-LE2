@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="home-container">
       <div className="banner">
-        <img src="/images/readl.png" alt="Reader" />
+        <img src="/images/readl.svg" alt="Reader" />
         <h1>
           Track books you’ve read.
           <br />
@@ -18,7 +18,7 @@ export default function Home() {
           <br />
           Share what’s worth the read.
         </h1>
-        <img id="readr" src="/images/readr.png" alt="Reader" />
+        <img id="readr" src="/images/readr.svg" alt="Reader" />
       </div>
 
       <div className="home-shelf">

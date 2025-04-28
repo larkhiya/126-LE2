@@ -121,7 +121,7 @@ p {
 
   .banner img {
     width: 6.6875rem;
-    height: 6.8125rem;
+    height: auto;
   }
 
   #readr {
