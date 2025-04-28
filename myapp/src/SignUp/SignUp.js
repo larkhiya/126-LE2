@@ -106,7 +106,7 @@ function SignUp() {
               onChange={handleChange}
               placeholder="Enter your password"
             />
-            <p className="password-hint">Password must be at least 8 characters</p>
+            <p className="password-hint">Password must be at least 6 characters</p>
           </div>
 
           <button type="submit" className="create-account-btn">Create account</button>
