@@ -1,0 +1,35 @@
+.discover-contribute {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+
+.discover-books {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+.discover-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.625rem;
+  align-self: stretch;
+}
+
+@media screen and (max-width: 767px) {
+  .discover-books {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 767px) and (max-width: 1023px) {
+  .discover-books {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

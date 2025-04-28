@@ -1,0 +1,59 @@
+.filled-button {
+  display: flex;
+  padding: 0.25rem 0.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.3125rem;
+  background: #d77676;
+  cursor: pointer;
+  transition: ease 0.3s;
+  border: none;
+  margin: 0;
+  text-align: inherit;
+  font: inherit;
+}
+
+.filled-button p {
+  color: #fff;
+}
+
+.outline-button {
+  display: flex;
+  padding: 0.25rem 0.75rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.3125rem;
+  border: 1px solid #d77676;
+  background: #fbf1f1;
+  cursor: pointer;
+  transition: ease 0.3s;
+  margin: 0;
+  text-align: inherit;
+  font: inherit;
+}
+
+.outline-button p{
+    color: #D77676;
+}
+
+@media screen and (min-width: 1024px) {
+.outline-button:hover {
+    opacity: 0.7;
+}
+
+.filled-button:hover {
+    background: #fe8181;
+    
+}
+}
+
+@media screen and (max-width: 767px) {
+  .filled-button p {
+    font-size: 0.875rem;
+  }
+
+  .filled-button {
+    padding: 0.25rem 0.5rem;
+    gap: 0.25rem;
+  }
+}

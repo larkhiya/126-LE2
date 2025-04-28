@@ -1,15 +1,14 @@
 import logo from "./logo.svg";
 import "./App.css";
-import HomePage from "./Home/HomePage";
-import NavBar from "./Home/components/AppBar.js";
-import Discover from "./Home/DiscoverPage.js";
+import NavBar from "./Screens/components/AppBar.js";
+import Discover from "./Screens/DiscoverPage.js";
+import Home from "./Screens/HomePage.js";
 
 function App() {
   return (
-    
     <div>
       <NavBar isSignedIn={true} />
-      <Discover />
+      <Home />
     </div>
   );
 }

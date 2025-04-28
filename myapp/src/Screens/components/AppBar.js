@@ -35,7 +35,7 @@ function NavBar({ isSignedIn }) {
               backgroundColor: "transparent",
             },
             color: "inherit",
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", sm: "block", md: "none" },
           }}
         >
           <MenuIcon />
@@ -47,7 +47,7 @@ function NavBar({ isSignedIn }) {
           className="nav-group"
           sx={{ 
             flexDirection: "row",
-            display: { xs: "none", sm: "flex" } }}
+            display: { xs: "none", sm: "none", md:"flex" } }}
         >
           <Link to="/" style={{ textDecoration: "none" }}>
             <h2 className="navitem">Home</h2>
@@ -68,7 +68,7 @@ function NavBar({ isSignedIn }) {
           </Link>
         </Box>
 
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/" style={{ textDecoration: "none" }} sx={{display: { xs: "none", sm: "none", md: "block" }}}>
           <h2 className="navitem">{isSignedIn ? "Sign out" : "Sign in"}</h2>
         </Link>
       </AppBar>

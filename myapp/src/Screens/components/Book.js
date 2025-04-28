@@ -1,4 +1,6 @@
-import React from "react"; 
+import React from "react";
+import StarIcon from "@mui/icons-material/Star";
+import { Box } from "@mui/material";
 
 function Book({ labelType, book }) {
   let label;
@@ -7,7 +9,11 @@ function Book({ labelType, book }) {
       label = book.author;
       break;
     case "rating":
-      label = book.rating;
+      label = (
+        <Box display="flex" alignItems="center" justifyContent="center">
+          {book.rating} <StarIcon sx={{ color: "#FFD700", ml: 0.5 }} />
+        </Box>
+      );
       break;
     case "review":
       label = `${book.review} reviews`;

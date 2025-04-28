@@ -2,11 +2,11 @@ import React from "react";
 import "./style/HomeStyle.css";
 import "./style/BookStyle.css";
 import "./style/NavBar.css";
-import Book from "./components/Book";
-import TopReviewer from "./components/TopReviewer";
+import Book from "./components/Book.js";
+import TopReviewer from "./components/TopReviewer.js";
 import { books, users } from "./DummyData.js";
 
-function HomePage() {
+export default function Home() {
   return (
     <div className="home-container">
       <div className="banner">
@@ -64,5 +64,3 @@ function HomePage() {
     </div>
   );
 }
-
-export default HomePage;
