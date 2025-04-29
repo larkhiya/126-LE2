@@ -32,7 +32,7 @@ p {
   font-family: Inter;
   font-size: 1.125rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.875rem;
   letter-spacing: -0.03375rem;
 }
@@ -79,7 +79,10 @@ p {
   flex-direction: row;
   align-items: flex-start;
   gap: 1.25rem;
+  overflow: visible;
 }
+
+
 
 @media screen and (max-width: 767px) {
   h1 {

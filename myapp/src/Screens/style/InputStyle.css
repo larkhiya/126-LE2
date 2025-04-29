@@ -16,7 +16,7 @@
   letter-spacing: -0.02625rem;
 }
 
-.label-input-container input {
+.label-input-container input, textarea {
   display: flex;
   padding: 0.5rem 0.75rem;
   align-items: center;
@@ -31,9 +31,11 @@
   font-weight: 500;
   line-height: 1.875rem;
   letter-spacing: -0.03375rem;
+  resize: none;
 }
 
-.label-input-container input:focus {
+
+.label-input-container input:focus, .label-input-container textarea:focus {
   border: 1px solid #d77676;
   outline: none;
   caret-color: #d77676;
@@ -47,6 +49,10 @@
   font-weight: 500;
   line-height: 1.875rem;
   letter-spacing: -0.03375rem;
+}
+
+.outlined input, .outlined textarea{
+  border: 1px solid #d77676;
 }
 
 @media screen and (max-width: 767px) {

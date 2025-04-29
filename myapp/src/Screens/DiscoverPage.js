@@ -11,7 +11,8 @@ import OutlineButton from "../Buttons/OutlineButton";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SearchBar from "./components/SearchBar";
 import LabelInput from "./components/Labelnput";
-import { BookX } from 'lucide-react';
+import { BookX } from "lucide-react";
+import LabelTextArea from "./components/LabelTextArea";
 
 function Discover() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -21,15 +22,22 @@ function Discover() {
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
+  const [synopsis, setSynopsis] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
 
   const disposeState = () => {
     setTitle("");
     setAuthor("");
     setCoverUrl("");
+    setSynopsis("");
   };
 
-  const isButtonDisabled = !(title.trim() && author.trim() && coverUrl.trim());
+  const isButtonDisabled = !(
+    title.trim() &&
+    author.trim() &&
+    coverUrl.trim() &&
+    synopsis.trim()
+  );
 
   const filteredBooks = discoverBooks.filter((book) => {
     const query = searchQuery.toLowerCase();
@@ -68,6 +76,12 @@ function Discover() {
               label="Author"
               placeholder="Enter book's author"
               onChange={(e) => setAuthor(e.target.value)}
+            />
+            <LabelTextArea
+              outlined={false}
+              label="Synopsis"
+              placeholder="Enter book's synopsis"
+              onChange={(e) => setSynopsis(e.target.value)}
             />
             <LabelInput
               label="Cover"
@@ -139,7 +153,7 @@ function Discover() {
             ))
           ) : (
             <div className="empty-state">
-              <BookX color="#683737" size={64} strokeWidth={1}/>
+              <BookX color="#683737" size={64} strokeWidth={1} />
               <p>
                 No books found.
                 <br />

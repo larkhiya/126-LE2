@@ -91,6 +91,16 @@ function NavBar({ isSignedIn }) {
           >
             <h2 className="navitem">My shelf</h2>
           </Link>
+
+          <Link
+            to="/details"
+            onClick={scrollToTop}
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <h2 className="navitem">Details</h2>
+          </Link>
         </Box>
 
         <Box
@@ -113,7 +123,7 @@ function NavBar({ isSignedIn }) {
             role="presentation"
             display="flex"
             flexDirection="column"
-            justifyContent='space-between'
+            justifyContent="space-between"
             style={{ height: "100%" }}
           >
             <Box display="flex" flexDirection="column" gap="1rem">
@@ -142,6 +152,14 @@ function NavBar({ isSignedIn }) {
                 onClick={() => setOpen(false)}
               >
                 <Typography variant="drawerLink">My Shelf</Typography>
+              </Link>
+
+              <Link
+                to={"/details"}
+                style={{ textDecoration: "none" }}
+                onClick={() => setOpen(false)}
+              >
+                <Typography variant="drawerLink">Details</Typography>
               </Link>
             </Box>
 

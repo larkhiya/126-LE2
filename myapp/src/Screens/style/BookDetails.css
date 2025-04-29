@@ -1,36 +1,42 @@
 .book-details-page {
-  padding: 2rem 2rem 5rem 2rem;
-  background: #fff;
-  font-family: 'Georgia', 'Times New Roman', serif;
-  color: #5b2c27;
-  max-width: 900px;
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.book-info-container p {
+  font-size: 1.125rem;
+  font-style: normal;
+  line-height: normal;
+  font-weight: 400;
+  line-height: 1.875rem; /* 166.667% */
+  letter-spacing: -0.03375rem;
 }
 
 .divider {
   height: 2px;
   width: 100%;
-  background-color: #E1D7D7;
+  background-color: #e1d7d7;
   border: none;
   align-self: stretch;
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
 }
 
 /* --- Book Cover + Info Section (Side by Side) --- */
 .book-main-section {
   display: flex;
+  max-width: 55rem;
+  padding: 2.5rem 0rem;
+  flex-direction: row;
   align-items: flex-start;
-  gap: 40px;
-  align-self: stretch;
-  margin-bottom: 3rem;
+  gap: 2.5rem;
 }
 
 .book-cover-container {
-  flex: 0 0 220px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
+  gap: 1.25rem;
 }
 
 .book-cover-image {
@@ -40,10 +46,24 @@
 }
 
 .book-info-container {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.book-info-container p,
+h2 {
+  text-align: start;
+}
+
+.book-info-container h2 {
+  color: #683737;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.06rem;
 }
 
 /* --- Book Info --- */
@@ -60,16 +80,15 @@
 
 .rating {
   display: flex;
+  justify-content: center;
   align-items: center;
   color: #683737;
   font-family: Inter;
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 1.875rem;
   letter-spacing: -0.03375rem;
 }
-
 
 .review-count {
   color: #683737;
@@ -77,12 +96,10 @@
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 1.875rem;
   letter-spacing: -0.03375rem;
 }
 
 .book-description {
-  line-height: 1.8;
   font-size: 1rem;
 }
 
@@ -137,42 +154,25 @@
   background-color: #f9efee;
 }
 
-
 /* --- Genres Section --- */
 .genres {
-  color: #683737;
-  font-family: Inter;
-  font-size: 2rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  letter-spacing: -0.06rem;
-  margin-top: -2.5rem;
-}
-
-.genre-tags {
   display: flex;
   align-items: flex-start;
-  flex-wrap: wrap;
+  align-content: flex-start;
   gap: 0.625rem;
-  color: #D77676;
-  font-family: Inter;
-  font-size: 1.125rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.875rem;
-  letter-spacing: -0.03375rem;
-  margin-top: -1.25rem;
+  align-self: stretch;
+  flex-wrap: wrap;
 }
 
-.genre-tags span {
+.genre-tag {
   display: flex;
-  padding: 0.25rem 1rem;
+  padding: 0.25rem 0.5rem;
   align-items: center;
   gap: 0.5rem;
   border-radius: 0.3125rem;
-  border: 1px solid #D77676;
-  background: #FBF1F1;
+  border: 1px solid #d77676;
+  background: #fbf1f1;
+  color: #d77676;
 }
 
 /* --- Review Section (Add / Edit) --- */
@@ -196,9 +196,25 @@
   margin-bottom: 1.5rem;
 }
 
+.rating-stars-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  align-self: stretch;
+}
+
+.input-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.25rem;
+  align-self: stretch;
+}
+
 .review-section input,
 .review-section textarea {
-  font-family: inherit; 
+  font-family: inherit;
   width: 100%;
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
@@ -206,12 +222,10 @@
   border-radius: 0.3125rem;
   margin-top: 0.125rem;
   box-sizing: border-box;
-  line-height: 1.5;
   height: 3rem;
   resize: none;
   overflow: hidden;
 }
-
 
 .review-section textarea {
   resize: none;
@@ -232,7 +246,7 @@
   justify-content: center;
   gap: 0.5rem;
   border-radius: 0.5rem;
-  background: #D77676;
+  background: #d77676;
   color: white;
   font-weight: bold;
   border: none;
@@ -244,7 +258,8 @@
   color: #683737;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;  
+  gap: 1.25rem;
+  align-self: stretch;
 }
 
 .review-form-container2 {
@@ -269,56 +284,55 @@
 
 .single-review {
   display: flex;
-  gap: 1rem;
-  margin-bottom: 3rem;
+  align-items: flex-start;
+  gap: 1.25rem;
+  align-self: stretch;
 }
 
 .avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-  border: 3px solid #D77676;
-  background: #FFF3C9;
+  width: 4.6875rem;
+  height: 4.6875rem;
+  border-radius: 0.625rem;
+  border: 2.5px solid #d77676;
+  background: #fff3c9;
 }
 
 .review-content {
   flex: 1;
+  align-items: stretch;
 }
 
 .review-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  color: #D77676;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.review-header p {
+  color: #d77676;
+}
+
+.review-date,
+.comment-date {
+  color: #d77676;
   font-family: Inter;
   font-size: 1.125rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 1.875rem; /* 166.667% */
   letter-spacing: -0.03375rem;
-
-}
-
-.review-date, .comment-date {
-color: #D77676;
-font-family: Inter;
-font-size: 1.125rem;
-font-style: normal;
-font-weight: 500;
-line-height: 1.875rem; /* 166.667% */
-letter-spacing: -0.03375rem;
 }
 
 .review-rating {
   display: flex;
-  align-items:flex-start;
+  align-items: flex-start;
   gap: 0.3125rem;
-  margin-top: .62rem;
+  margin-top: 0.62rem;
 }
 
 .review-text {
   margin-top: 0.5rem;
-  line-height: 1.6;
+  line-height: normal;
   font-size: 1rem;
 }
 
@@ -338,24 +352,22 @@ letter-spacing: -0.03375rem;
   flex-direction: column;
   gap: 1rem;
   box-sizing: border-box;
-  line-height: 1.5;
 }
 
 .single-comment {
   display: flex;
   align-items: flex-start;
+  justify-content: space-around;
   gap: 0.75rem;
-  margin-bottom: 0.5rem; /* slightly closer, or 1rem if you like more space */
-  margin-left: 0.5rem; /* 🔥 manual small indent if you want */
+  margin-bottom: 0.5rem;
 }
-
 
 .avatar-small {
   width: 4.6875rem;
-height: 4.6875rem;
+  height: 4.6875rem;
   border-radius: 0.625rem;
-  border: 3px solid #D77676;
-  background: #FFF3C9;
+  border: 3px solid #d77676;
+  background: #fff3c9;
 }
 
 .add-comment {
@@ -391,7 +403,7 @@ height: 4.6875rem;
   right: 0;
   background: white;
   border: 1px solid #ccc;
-  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 0.5rem;
   overflow: hidden;
   z-index: 10;
@@ -422,10 +434,10 @@ height: 4.6875rem;
   font-family: Inter;
   font-size: 1.125rem;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.875rem; /* 166.667% */
   letter-spacing: -0.03375rem;
-  }
+}
 
 .custom-hr::before,
 .custom-hr::after {
@@ -434,9 +446,10 @@ height: 4.6875rem;
   border-bottom: 1px solid #e1d7d7;
   height: 0rem;
   flex: 1 0 0;
-  stroke-width: 2px;
-  stroke: #E1D7D7;
+  stroke-width: 3px;
+  stroke: #e1d7d7;
 }
+
 .custom-hr::before {
   margin-right: 0.62rem;
 }
@@ -446,17 +459,23 @@ height: 4.6875rem;
 }
 
 .comment-action {
-  display: inline-flex; /* 🔥 important: keep them inline */
-  align-items: center; /* 🔥 vertically center */
-  gap: 0.5rem; /* 🔥 space between icon and text */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
   margin-top: 1rem;
-  color: #5b2c27;
-  font-family: Inter;
-  font-size: 1.125rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.875rem; /* 166.667% */
-  letter-spacing: -0.03375rem;
+  border-bottom: 1.5px solid transparent;
+}
+
+.comment-action:hover {
+  border-bottom: 1.5px solid #683737; /* or any color you prefer */
+  cursor: pointer;
+  /* Or alternatively: */
+  /* text-decoration: underline; */
+}
+
+button {
+  all: unset;
 }
 
 .comment-action svg {
@@ -492,20 +511,9 @@ height: 4.6875rem;
   flex-direction: column;
 }
 
-
-.comment-header strong {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #D77676;
-  font-family: Inter;
-  font-size: 1.125rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.875rem; /* 166.667% */
-  letter-spacing: -0.03375rem;
+.comment-header p {
+  color: #d77676;
 }
-
 
 .comment-text {
   margin-top: 0.25rem;
@@ -559,7 +567,6 @@ height: 4.6875rem;
   border-radius: 0.5rem;
   overflow: hidden;
   z-index: 10;
-  
 }
 
 .dropdown-menu button {
@@ -586,14 +593,15 @@ height: 4.6875rem;
 }
 
 .add-comment-input {
-  width: 100%;
   display: flex;
+  height: 2.875rem;
+  padding: 0rem 1rem;
+  justify-content: space-between;
   align-items: center;
-  background: #f9efee; /* light pink */
-  border: 1px solid #d6b0aa; /* pink border */
-  border-radius: 0.5rem;
-  padding: 0.75rem 1rem;
-  box-sizing: border-box;
+  align-self: stretch;
+  border-radius: 0.3125rem;
+  border: 1px solid #d77676;
+  background: #fbf1f1;
 }
 
 .add-comment-input input {
@@ -603,7 +611,15 @@ height: 4.6875rem;
   background: transparent;
   font-size: 1rem;
   font-family: inherit;
-  color: #5b2c27;
+  caret-color: #d77676;
+
+  color: #8e6969;
+  font-family: Inter;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.875rem;
+  letter-spacing: -0.03375rem;
 }
 
 .send-icon {
@@ -622,4 +638,65 @@ height: 4.6875rem;
   height: 1.5rem;
   stroke: #d77676;
   stroke-width: 2px;
+}
+
+@media screen and (max-width: 1023px) {
+  .book-main-section {
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .book-info-container {
+    margin: 0rem 2rem;
+  }
+}
+@media screen and (max-width: 767px) {
+  .book-details-page h2 {
+    font-size: 1.25rem;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.0375rem;
+  }
+
+  .book-main-section {
+    gap: 1.25rem;
+  }
+
+  .book-info-container {
+    gap: 0.6rem;
+  }
+
+  .avatar {
+    width: 2rem;
+    height: 2rem;
+    border: 1.5px solid #d77676;
+  }
+
+  .add-comment-input {
+    margin-top: 1.25rem;
+  }
+
+  .add-comment-input {
+    height: 2rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .add-comment-input input {
+    font-size: 0.8rem;
+  }
+
+  .send-icon svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .book-cover-container {
+    width: calc(100vw - 4rem);
+  }
+
+  .book-info-container p {
+    font-size: 0.8rem;
+    line-height: normal;
+  }
 }

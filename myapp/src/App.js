@@ -5,15 +5,28 @@ import NavBar from "./Screens/components/NavBar.js";
 import Discover from "./Screens/DiscoverPage.js";
 import Home from "./Screens/HomePage.js";
 import Profile from "./Screens/Profile.js";
+import BookDetails from "./Screens/BookDetails.js";
+import {sampleBook, sampleReviews, currentUser} from "./Screens/BookDetailsSample.js";
+import BookDetails2 from "./Screens/BookDetails2.js";
 
 function App() {
+  const bookDetailsElement = (
+    <BookDetails
+      book={sampleBook}
+      initialReviews={sampleReviews}
+      currentUser={currentUser}
+    />
+  );
+  
   return (
     <>
       <BrowserRouter>
         <NavBar isSignedIn={true} />
         <Routes>
-          <Route path="/" element={<Home />}/>
+          {/* <Route path="/" element={bookDetailsElement}/> */}
+          <Route path="/" element={<Home />} />
           <Route path="/discover" element={<Discover />} />
+          <Route path="/details" element={<BookDetails2 />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>

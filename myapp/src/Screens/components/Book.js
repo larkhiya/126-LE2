@@ -2,7 +2,7 @@ import React from "react";
 import StarIcon from "@mui/icons-material/Star";
 import { Box } from "@mui/material";
 
-function Book({ labelType, book }) {
+function Book({ labelType, book, showLabel = true }) {
   let label;
   switch (labelType) {
     case "author":
@@ -29,10 +29,12 @@ function Book({ labelType, book }) {
         <div className="book" style={{ backgroundColor: book.cover }}></div>
       </div>
 
-      <div className="book-container label">
-        <p>{book.title}</p>
-        <p>{label}</p>
-      </div>
+      {showLabel && (
+        <div className="book-container label">
+          <p>{book.title}</p>
+          <p>{label}</p>
+        </div>
+      )}
     </div>
   );
 }
