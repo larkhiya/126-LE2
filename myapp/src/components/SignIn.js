@@ -1,11 +1,14 @@
 import React, { use, useState } from 'react';
-import './styles/SignIn.css';
-
+import '../styles/SignIn.css';
+import { useNavigate } from 'react-router-dom';
 
 function SignIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    const navigate = useNavigate();
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -24,7 +27,7 @@ function SignIn() {
 
     return (
         <div className="signin-container">
-            <h2>Sign In</h2>
+            <h2>Sign In {username}</h2>
             <form onSubmit={handleSubmit} className="signin-form">
                 <div className="form-item">
                     <label htmlFor="username">Username</label>
@@ -50,14 +53,14 @@ function SignIn() {
 
                 {error && <p className="error-message">{error}</p>}
             </form>
-            <button type="submit" className="signin-button">Sign In</button>
+            <button type="submit" className="signin-button" >Sign In</button>
             <div className='bottom'>
                 <div className='text'>
                     <span className="line"></span>
                     <p>New to baksReader?</p>
                     <span className="line"></span>
                 </div>
-                <button type="submit" className="signup-button">Sign Up</button>
+                <button type="submit" className="signup-button" onClick={() => navigate('/')}>Sign Up</button>
             </div>
         </div>
 

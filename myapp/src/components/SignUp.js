@@ -1,6 +1,8 @@
 // SignUp.js
 import React, { useState } from 'react';
-import './styles/SignUp.css';  // Make sure to include your styles here
+import '../styles/SignUp.css';
+import { useNavigate } from 'react-router-dom';
+
 
 function SignUp() {
   // State to store form data
@@ -13,6 +15,9 @@ function SignUp() {
 
   // State for error messages
   const [error, setError] = useState('');
+
+  const navigate = useNavigate();
+
 
   // Handle change in input fields
   const handleChange = (e) => {
@@ -111,7 +116,7 @@ function SignUp() {
 
           <button type="submit" className="create-account-btn">Create account</button>
         </form>
-        <p className="signin-link">Already have an account? <a href="#">Sign in</a></p>
+        <p className="signin-link">Already have an account? <span onClick={() => navigate('/signin')}>Sign in</span></p>
       </div>
     </div>
   );

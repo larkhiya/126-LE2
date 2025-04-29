@@ -129,7 +129,7 @@ button {
   letter-spacing: -0.54px;
 }
 
-.signup-form p a{
+.signin-link span{
   font-family: 'Inter';
   color: #D77676;
   font-size: 1.125rem;
@@ -142,6 +142,7 @@ button {
   text-decoration-skip-ink: none;
   text-decoration-thickness: auto;
   text-underline-offset: auto;
+  cursor: pointer;
   text-underline-position: from-font;
 }
 
