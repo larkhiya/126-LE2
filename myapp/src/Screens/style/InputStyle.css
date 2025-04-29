@@ -48,3 +48,11 @@
   line-height: 1.875rem;
   letter-spacing: -0.03375rem;
 }
+
+@media screen and (max-width: 767px) {
+  .label-input-container input {
+    font-size: 0.875rem;
+    letter-spacing: -0.02625rem;
+    padding: 0.25rem 0.5rem;
+  }
+}

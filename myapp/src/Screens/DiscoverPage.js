@@ -11,6 +11,7 @@ import OutlineButton from "../Buttons/OutlineButton";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SearchBar from "./components/SearchBar";
 import LabelInput from "./components/Labelnput";
+import { BookX } from 'lucide-react';
 
 function Discover() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -22,7 +23,11 @@ function Discover() {
   const [author, setAuthor] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
 
-  const disposeState = () => {setTitle(""); setAuthor(""); setCoverUrl("");};
+  const disposeState = () => {
+    setTitle("");
+    setAuthor("");
+    setCoverUrl("");
+  };
 
   const isButtonDisabled = !(title.trim() && author.trim() && coverUrl.trim());
 
@@ -38,7 +43,10 @@ function Discover() {
     <div className="home-container">
       <Dialog
         open={openDialog}
-        onClose={() => {setDialogOpen(false); disposeState();}}
+        onClose={() => {
+          setDialogOpen(false);
+          disposeState();
+        }}
         sx={{
           "& .MuiDialog-paper": {
             backgroundColor: "#FBE5DC",
@@ -70,7 +78,10 @@ function Discover() {
 
           <ActionButton
             stretched="true"
-            onClick={() => {setDialogOpen(false); disposeState();}}
+            onClick={() => {
+              setDialogOpen(false);
+              disposeState();
+            }}
             label="Contribute"
             disabled={isButtonDisabled}
           />
@@ -113,12 +124,29 @@ function Discover() {
           </div>
         </div>
 
-        <div className="discover-books">
-          {filteredBooks.map((book, index) => (
-            <div key={index}>
-              <Book labelType="author" book={book} />
+        <div
+          className={
+            filteredBooks.length > 0
+              ? "discover-books"
+              : "discover-books not-found"
+          }
+        >
+          {filteredBooks.length > 0 ? (
+            filteredBooks.map((book, index) => (
+              <div key={index}>
+                <Book labelType="author" book={book} />
+              </div>
+            ))
+          ) : (
+            <div className="empty-state">
+              <BookX color="#683737" size={64} strokeWidth={1}/>
+              <p>
+                No books found.
+                <br />
+                Contribute this book to add in our library!
+              </p>
             </div>
-          ))}
+          )}
         </div>
       </div>
     </div>

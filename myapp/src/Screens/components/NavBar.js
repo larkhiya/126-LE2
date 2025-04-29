@@ -82,7 +82,7 @@ function NavBar({ isSignedIn }) {
           </Link>
 
           <Link
-            to="/"
+            to="/profile"
             onClick={scrollToTop}
             style={{
               textDecoration: "none",
@@ -134,7 +134,7 @@ function NavBar({ isSignedIn }) {
               </Link>
 
               <Link
-                to="/my-shelf"
+                to="/profile"
                 style={{
                   textDecoration: "none",
                   display: isSignedIn ? "block" : "none", // Show only when signed in

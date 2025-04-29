@@ -1,0 +1,72 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-content-container {
+  display: flex;
+  width: 67.5rem;
+  padding: 2.5rem 0rem;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2.5rem;
+}
+
+.user-shelf {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2.5rem;
+}
+
+.shelf-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+  align-self: stretch;
+}
+
+.shelf-section h2 {
+  color: #d77676;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.06rem;
+  border-bottom: 2px solid lightgray;
+  padding-bottom: 0.5rem;
+  width: 840px;
+}
+
+.book-row {
+  gap: 1.25rem;
+  overflow-x: auto;
+  max-width: 840px;
+}
+
+@media screen and (max-width: 1024px) {
+    .profile-content-container{
+        width: 10.5rem;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.25rem;
+        padding: 2.25rem 0rem;
+    }
+
+    .shelf-section h2{
+        width: 90vw;
+        font-size: 1.5rem;
+    }
+
+    .user-shelf{
+        gap: 1.25rem;
+    }
+    .book-row {
+        gap: 1.25rem;
+        width: 90vw;
+      }
+}
