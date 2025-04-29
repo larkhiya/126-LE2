@@ -1,31 +1,12 @@
 .search-container {
   display: flex;
-  flex: 1;
-  padding: 0rem 0.75rem;
-  height: 2.5rem;
+  padding: 0rem 0.5rem;
   align-items: center;
   align-self: stretch;
   border-radius: 0.3125rem;
   border: 1px solid #fbe5dc;
   background: rgba(251, 229, 220, 0.5);
-
-  color: #8e6969;
-  font-family: Inter;
-  font-size: 1.125rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.875rem;
-  letter-spacing: -0.03375rem;
-}
-
-.search-container::placeholder {
-  color: #c5adab;
-  font-family: Inter;
-  font-size: 1.125rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.875rem;
-  letter-spacing: -0.03375rem;
+  width: 100%;
 }
 
 .search-container:focus {
@@ -39,17 +20,32 @@
   align-items: flex-start;
   gap: 0.625rem;
   flex-direction: row;
+  width: 100%;
+}
+
+.search-filter input {
+  color: #8e6969;
+  font-family: Inter;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.875rem;
+  letter-spacing: -0.03375rem;
+}
+
+.search-filter input::placeholder {
+  color: #c5adab;
+  font-family: Inter;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.875rem;
+  letter-spacing: -0.03375rem;
 }
 
 @media screen and (max-width: 767px) {
-  .search-container {
-    height: 1.75rem;
-    line-height: normal;
-    font-size: 0.875rem;
-    letter-spacing: -0.02625rem;
-  }
 
-  .search-container::placeholder {
+  .search-filter input::placeholder, .search-filter input {
     line-height: normal;
     font-size: 0.875rem;
     letter-spacing: -0.02625rem;

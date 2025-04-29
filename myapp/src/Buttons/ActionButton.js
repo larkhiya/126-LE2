@@ -5,9 +5,11 @@ export default function ActionButton({
   icon,
   onClick,
   label,
+  disabled,
+  stretched
 }) {
   return (
-    <button className="filled-button" onClick={onClick}>
+    <button className={stretched ? 'filled-button stretched' : 'filled-button'} onClick={onClick} disabled={disabled}>
         {icon}
         <p>{label}</p>
     </button>
