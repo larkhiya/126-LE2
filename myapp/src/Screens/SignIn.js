@@ -1,7 +1,8 @@
 import React, { use, useState } from 'react';
 import '../styles/SignIn.css';
 import { useNavigate } from 'react-router-dom';
-
+import { login } from '../lib/stores/auth.ts';
+import { useAuthStore } from '../lib/stores/auth.ts';
 
 
 function SignIn() {
