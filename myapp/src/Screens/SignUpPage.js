@@ -3,6 +3,8 @@ import "./style/SignUpPage.css";
 import { useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -97,6 +99,7 @@ const SignupPage = () => {
 
           <button type="submit">Sign Up</button>
         </form>
+        <p className="signin-link">Already have an account? <span onClick={() => navigate('/signin')}>Sign in</span></p>
       </div>
     </div>
   );

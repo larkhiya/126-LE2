@@ -173,6 +173,9 @@ input {
 
 @media (max-width: 580px) {
 
+    .signin-page{
+        background-color: #FBF5F1;
+    }
 
     .signin-container {
         padding: 0;
