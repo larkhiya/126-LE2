@@ -13,6 +13,10 @@
   letter-spacing: -0.03375rem;
 }
 
+.book-info-container h1 {
+  text-align: start;
+}
+
 .divider {
   height: 2px;
   width: 100%;

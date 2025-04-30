@@ -1,10 +1,13 @@
 import {React, useContext, useState, useEffect} from "react";
 import "./style/ProfileStyle.css";
-import { books } from "./DummyData.js";
+// import { books } from "./DummyData.js";
 import Book from "./components/Book.js";
 import AuthContext from "../context/AuthContext.js";
+import axios from "axios";
+import { useData } from "../context/DataContext.js";
 
 export default function Profile() {
+    const {contributedBooks, readBooks, readingBooks } = useData();
     const { authTokens, logoutUser } = useContext(AuthContext);
     let [profile, setProfile] = useState({})
 
@@ -12,22 +15,29 @@ export default function Profile() {
         getProfile()
     },[])
 
-    const getProfile = async() => {
-        let response = await fetch('http://127.0.0.1:8000/api/profile', {
-        method: 'GET',
-        headers:{
-            'Content-Type': 'application/json',
-            'Authorization':'Bearer ' + String(authTokens.access)
+    const getProfile = async () => {
+        try {
+          const response = await axios.get('http://127.0.0.1:8000/api/profile', {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + String(authTokens.access)
+            }
+          });
+          
+          // Check for successful response status
+          if (response.status === 200) {
+            setProfile(response.data);
+          }
+        } catch (error) {
+          // Handle errors (e.g., Unauthorized)
+          if (error.response && error.response.status === 401) {
+            logoutUser();
+          } else {
+            console.error('Error in the get method', error);
+          }
         }
-        })
-        let data = await response.json()
-        console.log(data)
-        if(response.status === 200){
-            setProfile(data)
-        } else if(response.statusText === 'Unauthorized'){
-            logoutUser()
-        }
-    }
+      };
+
   return (
     <div className="profile-container">
       <div className="profile-content-container">
@@ -37,8 +47,7 @@ export default function Profile() {
           <div className="shelf-section">
             <h2>Contributed books</h2>
             <div className="book-row">
-              {books
-                .sort((a, b) => b.rating - a.rating)
+              {contributedBooks
                 .map((book, index) => (
                   <div key={index}>
                     <Book labelType="author" book={book} />
@@ -49,8 +58,7 @@ export default function Profile() {
             <div className="shelf-section">
               <h2>Read</h2>
               <div className="book-row">
-                {books
-                  .sort((a, b) => b.rating - a.rating)
+                {readBooks
                   .map((book, index) => (
                     <div key={index}>
                       <Book labelType="author" book={book} />
@@ -62,8 +70,7 @@ export default function Profile() {
             <div className="shelf-section">
               <h2>Currently reading</h2>
               <div className="book-row">
-                {books
-                  .sort((a, b) => b.rating - a.rating)
+                {readingBooks
                   .map((book, index) => (
                     <div key={index}>
                       <Book labelType="author" book={book} />

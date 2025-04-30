@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import Book from "./components/Book";
 import { books } from "./DummyData.js";
 import { sampleBook, sampleReviews } from "./BookDetailsSample.js";
@@ -7,39 +7,55 @@ import ActionButton from "../Buttons/ActionButton";
 import StarIcon from "@mui/icons-material/Star";
 import { MessageCircleMore, Send } from "lucide-react";
 import LabelTextArea from "./components/LabelTextArea.js";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { Rating } from "@mui/material";
 
 function BookDetails2({}) {
   const [editRating, setEditRating] = useState(0);
+  const [value, setValue] = useState(0);
+
+  const { id } = useParams();
+  const [book, setBook] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(`http://127.0.0.1:8000/api/books/${id}`)
+      .then((res) => setBook(res.data))
+      .catch((err) => console.error("Error fetching book:", err));
+  }, [id]);
+
+  if (!book) return <p>Loading...</p>;
   return (
     <div className="book-details-page">
       <div className="book-main-section">
         <div className="book-cover-container ">
-          <Book book={books[0]} showLabel={false} />
+          <Book book={book} showLabel={false} />
           <ActionButton label="Read" stretched={true} />
         </div>
 
         <div className="book-info-container">
           <div>
-            <h1>{sampleBook.title}</h1>
-            <h2>{sampleBook.author}</h2>
+            <h1>{book.title}</h1>
+            <h2>{book.author}</h2>
           </div>
 
           <div className="rating">
-            <p>{sampleBook.rating}</p>
+            <p>{book.average_rating}</p>
             <StarIcon sx={{ color: "#FFD53D", fontSize: 20 }} />
             <p style={{ padding: "0 8px" }}>|</p>
-            <p>{sampleBook.reviewsCount} reviews</p>
+            <p>{book.review_count} reviews</p>
           </div>
 
-          <p>{sampleBook.description}</p>
+          <p>{book.synopsis}</p>
 
           <hr className="divider" />
 
           <h2>Genres</h2>
           <div className="genres">
-            {sampleBook.genres.map((genre, index) => (
-              <p className="genre-tag" key={index}>
-                {genre}
+            {book.genres.map((genre, index) => (
+              <p className="genre-tag" key={genre.id}>
+                {genre.name}
               </p>
             ))}
           </div>
@@ -48,6 +64,15 @@ function BookDetails2({}) {
           <div className="review-form-container">
             <h2>What do you think about this book?</h2>
           </div>
+
+          <Rating
+            name="simple-controlled"
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            size="large"
+          />
 
           {/* <div className="rating-stars-container">
             <div className="review-stars">

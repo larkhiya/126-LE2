@@ -51,6 +51,11 @@ p {
   background: #fbf5f1;
 }
 
+.banner img{
+  height: 16.4375rem;
+  width: auto;
+}
+
 .banner h1 {
   padding: 2.5rem 0rem;
   justify-content: center;
@@ -80,8 +85,13 @@ p {
   align-items: flex-start;
   gap: 1.25rem;
   overflow: visible;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
 }
 
+.book-row::-webkit-scrollbar {
+  display: none; 
+}
 
 
 @media screen and (max-width: 767px) {

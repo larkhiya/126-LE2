@@ -56,7 +56,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .label-input-container input {
+  .label-input-container input, textarea {
     font-size: 0.875rem;
     letter-spacing: -0.02625rem;
     padding: 0.25rem 0.5rem;
