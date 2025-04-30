@@ -9,11 +9,6 @@ import { useData } from "../context/DataContext.js";
 
 export default function Home() {
   const { books } = useData();
-
-  if (!books || books.length === 0) {
-    return <div className="loading">Loading books...</div>;
-  }
-
   return (
     <div className="home-container">
       <div className="banner">
