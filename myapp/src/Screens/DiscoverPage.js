@@ -13,26 +13,10 @@ import SearchBar from "./components/SearchBar";
 import LabelInput from "./components/Labelnput";
 import { BookX } from "lucide-react";
 import LabelTextArea from "./components/LabelTextArea";
+import { useData } from "../context/DataContext";
 
 function Discover() {
-  const [books, setBooks] = useState([]);
-  useEffect(() => {
-    fetchBooks();
-  }, []);
-
-  const fetchBooks = async () => {
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/books/");
-      if (response.ok) {
-        const data = await response.json();
-        setBooks(data);
-      } else {
-        console.error("Failed to fetch books");
-      }
-    } catch (error) {
-      console.error("Error fetching books:", error);
-    }
-  };
+  const { books } = useData();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [openDialog, setDialogOpen] = useState(false);
@@ -58,13 +42,15 @@ function Discover() {
     synopsis.trim()
   );
 
-  const filteredBooks = books.filter((book) => {
-    const query = searchQuery.toLowerCase();
-    return (
-      book.title.toLowerCase().includes(query) ||
-      book.author.toLowerCase().includes(query)
-    );
-  });
+  const filteredBooks = books
+    .sort((a, b) => a.title.localeCompare(b.title))
+    .filter((book) => {
+      const query = searchQuery.toLowerCase();
+      return (
+        book.title.toLowerCase().includes(query) ||
+        book.author.toLowerCase().includes(query)
+      );
+    });
 
   return (
     <div className="home-container">

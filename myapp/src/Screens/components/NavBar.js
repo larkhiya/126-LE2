@@ -93,16 +93,6 @@ function NavBar({ isSignedIn }) {
           >
             <h2 className="navitem">My Shelf</h2>
           </Link>
-
-          <Link
-            to="/details"
-            onClick={scrollToTop}
-            style={{
-              textDecoration: "none",
-            }}
-          >
-            <h2 className="navitem">Details</h2>
-          </Link>
         </Box>
 
         <Box

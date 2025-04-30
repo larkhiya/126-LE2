@@ -4,9 +4,16 @@ import "./style/BookStyle.css";
 import "./style/NavBar.css";
 import Book from "./components/Book.js";
 import TopReviewer from "./components/TopReviewer.js";
-import { books, users } from "./DummyData.js";
+import { users } from "./DummyData.js";
+import { useData } from "../context/DataContext.js";
 
 export default function Home() {
+  const { books } = useData();
+
+  if (!books || books.length === 0) {
+    return <div className="loading">Loading books...</div>;
+  }
+
   return (
     <div className="home-container">
       <div className="banner">
@@ -26,7 +33,8 @@ export default function Home() {
           <h1>Highest rated</h1>
           <div className="book-row">
             {books
-              .sort((a, b) => b.rating - a.rating)
+              .slice(0, 5)
+              .sort((a, b) => b.average_rating - a.average_rating)
               .map((book, index) => (
                 <div key={index}>
                   <Book labelType="rating" book={book} />
@@ -39,7 +47,8 @@ export default function Home() {
           <h1>Most reviewed</h1>
           <div className="book-row">
             {books
-              .sort((a, b) => b.review - a.review)
+              .slice(0, 5)
+              .sort((a, b) => b.review_count - a.review_count)
               .map((book, index) => (
                 <div key={index}>
                   <Book labelType="review" book={book} />
@@ -52,6 +61,7 @@ export default function Home() {
           <h1>Top reviewers</h1>
           <div className="book-row">
             {users
+              .slice(0, 5)
               .sort((a, b) => b.reviewsWritten - a.reviewsWritten)
               .map((user, index) => (
                 <div key={index}>

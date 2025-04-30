@@ -86,8 +86,13 @@ p {
   align-items: flex-start;
   gap: 1.25rem;
   overflow: visible;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
 }
 
+.book-row::-webkit-scrollbar {
+  display: none; 
+}
 
 
 @media screen and (max-width: 767px) {

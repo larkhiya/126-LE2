@@ -15,7 +15,7 @@ import BookDetails2 from "./Screens/BookDetails2.js";
 import LoginPage from "./Screens/LoginPage.js";
 import { AuthProvider } from "./context/AuthContext.js";
 import SignupPage from "./Screens/SignUpPage.js";
-
+import { DataProvider } from "./context/DataContext.js";
 
 function App() {
   const location = useLocation();
@@ -35,7 +35,7 @@ function App() {
             {/* <Route path="/" element={bookDetailsElement}/> */}
             <Route path="/" element={<Home />} />
             <Route path="/discover" element={<Discover />} />
-            <Route path="/details" element={<BookDetails2 />} />
+            <Route path="/book/:id" element={<BookDetails2 />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/signin" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
