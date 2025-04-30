@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   AppBar,
   Drawer,
@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
+import AuthContext from "../../context/AuthContext.js";
 
 const theme = createTheme({
   typography: {
@@ -24,6 +25,7 @@ const theme = createTheme({
 
 function NavBar({ isSignedIn }) {
   const [open, setOpen] = useState(false);
+  let { user, logoutUser } = useContext(AuthContext);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -86,7 +88,7 @@ function NavBar({ isSignedIn }) {
             onClick={scrollToTop}
             style={{
               textDecoration: "none",
-              display: isSignedIn ? "block" : "none",
+              display: user ? "block" : "none",
             }}
           >
             <h2 className="navitem">My shelf</h2>
@@ -108,8 +110,12 @@ function NavBar({ isSignedIn }) {
             display: { xs: "none", sm: "none", md: "block" },
           }}
         >
-          <Link to="/" onClick={scrollToTop} style={{ textDecoration: "none" }}>
-            <h2 className="navitem">{isSignedIn ? "Sign out" : "Sign in"}</h2>
+          <Link
+            to="/login"
+            onClick={user ? logoutUser : () => {}}
+            style={{ textDecoration: "none" }}
+          >
+            <h2 className="navitem">{user ? "Sign out" : "Sign in"}</h2>
           </Link>
         </Box>
       </AppBar>

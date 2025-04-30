@@ -13,7 +13,8 @@
   gap: 0rem;
 }
 
-.book-container.label p, .reviewer-container.label p {
+.book-container.label p,
+.reviewer-container.label p {
   width: 9.375rem;
   white-space: nowrap;
   overflow: hidden;
@@ -26,11 +27,13 @@
 
 .spine {
   flex-shrink: 0;
+  border-radius: 0rem 0.625rem 0.625rem 0rem;
   background: linear-gradient(
     90deg,
     rgba(217, 217, 217, 0.25) 0%,
-    rgba(53, 53, 53, 0.35) 4.81%,
-    rgba(137, 137, 137, 0) 15.87%
+    rgba(53, 53, 53, 0.39) 7.69%,
+    rgba(255, 255, 255, 0.25) 12.5%,
+    rgba(137, 137, 137, 0) 31.73%
   );
   z-index: 1;
 }
@@ -67,12 +70,14 @@
 }
 
 @media screen and (max-width: 767px) {
-  .book-container, .reviewer-container {
+  .book-container,
+  .reviewer-container {
     width: auto;
     gap: 0.625rem;
   }
 
-  .book-container.label p, .reviewer-container.label p {
+  .book-container.label p,
+  .reviewer-container.label p {
     width: 6.25rem;
   }
 

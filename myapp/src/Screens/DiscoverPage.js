@@ -1,10 +1,10 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import "./style/DiscoverStyle.css";
 import "./style/SearchStyle.css";
 import "./style/InputStyle.css";
 import ActionButton from "../Buttons/ActionButton";
 import AddIcon from "@mui/icons-material/Add";
-import { discoverBooks } from "./DummyData";
+// import { discoverBooks } from "./DummyData";
 import Book from "./components/Book";
 import { Dialog, Menu } from "@mui/material";
 import OutlineButton from "../Buttons/OutlineButton";
@@ -15,6 +15,25 @@ import { BookX } from "lucide-react";
 import LabelTextArea from "./components/LabelTextArea";
 
 function Discover() {
+  const [books, setBooks] = useState([]);
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
+  const fetchBooks = async () => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/books/");
+      if (response.ok) {
+        const data = await response.json();
+        setBooks(data);
+      } else {
+        console.error("Failed to fetch books");
+      }
+    } catch (error) {
+      console.error("Error fetching books:", error);
+    }
+  };
+
   const [searchQuery, setSearchQuery] = useState("");
   const [openDialog, setDialogOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -39,7 +58,7 @@ function Discover() {
     synopsis.trim()
   );
 
-  const filteredBooks = discoverBooks.filter((book) => {
+  const filteredBooks = books.filter((book) => {
     const query = searchQuery.toLowerCase();
     return (
       book.title.toLowerCase().includes(query) ||
