@@ -1,13 +1,10 @@
 import React, { use, useState } from 'react';
 import '../styles/SignIn.css';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../lib/stores/auth.ts';
-import { useAuthStore } from '../lib/stores/auth.ts';
 
 
 
 function SignIn() {
-    const { user } = useAuthStore();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -25,9 +22,6 @@ function SignIn() {
             setError('');
 
             // Django setup here
-            const res = await login(username, password)
-            console.log(res, 'here bitch')
-            console.log(user)
 
             console.log('Username: ', username);
             console.log('Password: ', password);
@@ -72,7 +66,7 @@ function SignIn() {
                     <p>New to baksReader?</p>
                     <span className="line"></span>
                 </div>
-                <button type="submit" className="signup-button" onClick={() => navigate('/')}>Sign Up</button>
+                <button type="submit" className="signup-button" onClick={() => navigate('/signup')}>Sign Up</button>
             </div>
         </div>
 

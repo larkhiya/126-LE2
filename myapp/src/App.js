@@ -1,21 +1,20 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
-import SignUp from './components/SignUp';
-import SignIn from './components/SignIn';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SignUp from './Screens/SignUp';
+import SignIn from './Screens/SignIn';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
 
 function App() {
   return (
     <div className="App">
-      
-      <Router>
+      <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SignUp />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
     </div>
   );
 }
