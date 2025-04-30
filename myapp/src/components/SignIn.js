@@ -1,17 +1,23 @@
 import React, { use, useState } from 'react';
 import '../styles/SignIn.css';
 import { useNavigate } from 'react-router-dom';
+import { login } from '../lib/stores/auth.ts';
+import { useAuthStore } from '../lib/stores/auth.ts';
+
+
 
 function SignIn() {
+    const { user } = useAuthStore();
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
     const navigate = useNavigate();
-    
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('htest')
 
         if (!username || !password) {
             setError('Both fields are required');
@@ -19,15 +25,21 @@ function SignIn() {
             setError('');
 
             // Django setup here
+            const res = await login(username, password)
+            console.log(res, 'here bitch')
+            console.log(user)
+
             console.log('Username: ', username);
             console.log('Password: ', password);
             alert('Sign In successful');
         }
     };
 
+
     return (
         <div className="signin-container">
-            <h2>Sign In {username}</h2>
+            <h2>Sign In </h2> 
+            {/* {user?.full_name} */}
             <form onSubmit={handleSubmit} className="signin-form">
                 <div className="form-item">
                     <label htmlFor="username">Username</label>

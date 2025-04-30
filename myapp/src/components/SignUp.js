@@ -29,35 +29,53 @@ function SignUp() {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // STOP form from refreshing
+  
     const { name, username, email, password } = formData;
-
+  
     // Simple validation
     if (!name || !username || !email || !password) {
       setError('All fields are required');
       return;
     }
-
+  
     // Basic email validation
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
       setError('Please enter a valid email address');
       return;
     }
-
+  
     setError('');
-    // If validation passes, proceed with submission (e.g., API call)
-    console.log('Form Submitted', formData);
-
-    // Reset form
-    setFormData({
-      name: '',
-      username: '',
-      email: '',
-      password: '',
-    });
+  
+    // If validation passes, proceed with API call
+    fetch('http://localhost:8000/api/register/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.message) {
+          alert('User registered successfully!');
+          // Reset form after successful registration
+          setFormData({
+            name: '',
+            username: '',
+            email: '',
+            password: '',
+          });
+        } else {
+          setError('Registration failed. Try a different username.');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        setError('Something went wrong. Please try again later.');
+      });
   };
 
   return (
