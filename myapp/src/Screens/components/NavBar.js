@@ -91,7 +91,7 @@ function NavBar({ isSignedIn }) {
               display: user ? "block" : "none",
             }}
           >
-            <h2 className="navitem">My shelf</h2>
+            <h2 className="navitem">My Shelf</h2>
           </Link>
 
           <Link
@@ -111,7 +111,7 @@ function NavBar({ isSignedIn }) {
           }}
         >
           <Link
-            to="/login"
+            to="/signin"
             onClick={user ? logoutUser : () => {}}
             style={{ textDecoration: "none" }}
           >
