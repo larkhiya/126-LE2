@@ -9,13 +9,14 @@ import { MessageCircleMore, Send } from "lucide-react";
 import LabelTextArea from "./components/LabelTextArea.js";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import { Rating } from "@mui/material";
+import { Dialog, Rating } from "@mui/material";
 import AuthContext from "../context/AuthContext.js";
 import DataContext from "../context/DataContext.js";
+import OutlineButton from "../Buttons/OutlineButton.js";
 
 function BookDetails2({}) {
   let { user, authTokens } = useContext(AuthContext);
-  let {refreshBooks} = useContext(DataContext)
+  let { refreshBooks } = useContext(DataContext);
   const [editRating, setEditRating] = useState(0);
   const [value, setValue] = useState(0);
 
@@ -23,12 +24,64 @@ function BookDetails2({}) {
   const [book, setBook] = useState(null);
   const navigate = useNavigate();
 
+  const [bookStateDialog, setbookStateDialog] = useState(false);
+
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:8000/api/books/${id}`)
       .then((res) => setBook(res.data))
       .catch((err) => console.error("Error fetching book:", err));
   }, [id]);
+
+  const setBookStatus = async (status) => {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/user/bookStatus/",
+        { book: id, status},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + String(authTokens.access),
+          },
+        }
+      );
+
+      refreshBooks();
+      console.log("Status set:", response.data);
+    } catch (error) {
+      if (error.response?.status === 400) {
+        alert("Bad request: " + JSON.stringify(error.response.data));
+      } else if (error.response?.status === 401) {
+        alert("Unauthorized: Please log in.");
+      } 
+    }
+  };
+
+  const removeBookFromShelf = async () => {
+    try {
+      const response = await axios.delete(
+        `http://127.0.0.1:8000/api/user/bookStatus/remove/?book=${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + String(authTokens.access),
+          },
+        }
+      );
+      console.log("Book removed from shelf");
+      refreshBooks();
+      setbookStateDialog(false); 
+     
+    } catch (error) {
+      if (error.response?.status === 404) {
+        alert("Book not found on your shelf");
+      } else if (error.response?.status === 401) {
+        alert("Unauthorized: Please log in.");
+      } else {
+        console.error("Error removing book from shelf:", error);
+        alert("Failed to remove book from shelf. Please try again.");
+      }
+    }
+  };
 
   const uncontribute = () => {
     axios
@@ -41,7 +94,7 @@ function BookDetails2({}) {
       .then(() => {
         console.log("Book deleted");
         refreshBooks();
-        navigate('/discover');
+        navigate("/discover");
       })
       .catch((err) => console.error("Delete failed:", err));
   };
@@ -49,10 +102,35 @@ function BookDetails2({}) {
   if (!book) return <p>Loading...</p>;
   return (
     <div className="book-details-page">
+      <Dialog
+        open={bookStateDialog}
+        onClose={() => {
+          setbookStateDialog(false);
+        }}
+        sx={{
+          "& .MuiDialog-paper": {
+            backgroundColor: "#FBE5DC",
+            borderRadius: "10px",
+            width: "100%",
+            maxWidth: "20rem",
+            padding: "1rem",
+            gap: "0.5rem",
+          },
+        }}
+      >
+        <OutlineButton label="read" onClick={() => setBookStatus('read')} />
+        <OutlineButton label="currently reading" onClick={() => setBookStatus('reading')} />
+        <OutlineButton label="remove from shelf" onClick={() => removeBookFromShelf()} />
+      </Dialog>
+
       <div className="book-main-section">
         <div className="book-cover-container ">
           <Book book={book} showLabel={false} />
-          <ActionButton label="Read" stretched={true} />
+          <ActionButton
+            label="Read"
+            onClick={() => setbookStateDialog(true)}
+            stretched={true}
+          />
           <ActionButton
             label="Delete"
             onClick={uncontribute}

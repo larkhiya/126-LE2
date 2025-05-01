@@ -1,4 +1,4 @@
-import {React, useContext, useState, useEffect} from "react";
+import { React, useContext, useState, useEffect } from "react";
 import "./style/ProfileStyle.css";
 // import { books } from "./DummyData.js";
 import Book from "./components/Book.js";
@@ -7,9 +7,8 @@ import axios from "axios";
 import { useData } from "../context/DataContext.js";
 
 export default function Profile() {
-    const {profile, contributedBooks, readBooks, readingBooks } = useData();
-
-
+  const { profile, contributedBooks, readBooks, readingBooks } = useData();
+  
   return (
     <div className="profile-container">
       <div className="profile-content-container">
@@ -20,6 +19,7 @@ export default function Profile() {
             <h2>Contributed books</h2>
             <div className="book-row">
               {contributedBooks
+                .sort((a, b) => a.title - b.title)
                 .map((book, index) => (
                   <div key={index}>
                     <Book labelType="author" book={book} />
@@ -31,6 +31,7 @@ export default function Profile() {
               <h2>Read</h2>
               <div className="book-row">
                 {readBooks
+                  .sort((a, b) => a.title - b.title)
                   .map((book, index) => (
                     <div key={index}>
                       <Book labelType="author" book={book} />
@@ -43,6 +44,7 @@ export default function Profile() {
               <h2>Currently reading</h2>
               <div className="book-row">
                 {readingBooks
+                  .sort((a, b) => a.title - b.title)
                   .map((book, index) => (
                     <div key={index}>
                       <Book labelType="author" book={book} />
