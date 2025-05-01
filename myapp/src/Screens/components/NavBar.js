@@ -23,7 +23,7 @@ const theme = createTheme({
   },
 });
 
-function NavBar({ isSignedIn }) {
+function NavBar({}) {
   const [open, setOpen] = useState(false);
   let { user, logoutUser } = useContext(AuthContext);
 
@@ -143,29 +143,21 @@ function NavBar({ isSignedIn }) {
                 to="/profile"
                 style={{
                   textDecoration: "none",
-                  display: isSignedIn ? "block" : "none", // Show only when signed in
+                  display: user ? "block" : "none", // Show only when signed in
                 }}
                 onClick={() => setOpen(false)}
               >
                 <Typography variant="drawerLink">My Shelf</Typography>
               </Link>
-
-              <Link
-                to={"/details"}
-                style={{ textDecoration: "none" }}
-                onClick={() => setOpen(false)}
-              >
-                <Typography variant="drawerLink">Details</Typography>
-              </Link>
             </Box>
 
             <Link
-              to={isSignedIn ? "/signout" : "/signin"}
+              to={user ? "/signout" : "/signin"}
               style={{ textDecoration: "none" }}
               onClick={() => setOpen(false)}
             >
               <Typography variant="drawerLink">
-                {isSignedIn ? "Sign out" : "Sign in"}
+                {user ? "Sign out" : "Sign in"}
               </Typography>
             </Link>
           </Box>

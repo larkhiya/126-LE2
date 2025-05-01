@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import Book from "./components/Book";
 import { books } from "./DummyData.js";
 import { sampleBook, sampleReviews } from "./BookDetailsSample.js";
@@ -8,15 +8,20 @@ import StarIcon from "@mui/icons-material/Star";
 import { MessageCircleMore, Send } from "lucide-react";
 import LabelTextArea from "./components/LabelTextArea.js";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Rating } from "@mui/material";
+import AuthContext from "../context/AuthContext.js";
+import DataContext from "../context/DataContext.js";
 
 function BookDetails2({}) {
+  let { user, authTokens } = useContext(AuthContext);
+  let {refreshBooks} = useContext(DataContext)
   const [editRating, setEditRating] = useState(0);
   const [value, setValue] = useState(0);
 
   const { id } = useParams();
   const [book, setBook] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -25,6 +30,22 @@ function BookDetails2({}) {
       .catch((err) => console.error("Error fetching book:", err));
   }, [id]);
 
+  const uncontribute = () => {
+    axios
+      .delete(`http://127.0.0.1:8000/api/books/${id}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
+        },
+      })
+      .then(() => {
+        console.log("Book deleted");
+        refreshBooks();
+        navigate('/discover');
+      })
+      .catch((err) => console.error("Delete failed:", err));
+  };
+
   if (!book) return <p>Loading...</p>;
   return (
     <div className="book-details-page">
@@ -32,6 +53,11 @@ function BookDetails2({}) {
         <div className="book-cover-container ">
           <Book book={book} showLabel={false} />
           <ActionButton label="Read" stretched={true} />
+          <ActionButton
+            label="Delete"
+            onClick={uncontribute}
+            stretched={true}
+          />
         </div>
 
         <div className="book-info-container">
@@ -60,21 +86,23 @@ function BookDetails2({}) {
             ))}
           </div>
 
-          <hr className="divider" />
-          <div className="review-form-container">
-            <h2>What do you think about this book?</h2>
-          </div>
+          {user && (
+            <>
+              <hr className="divider" />
 
-          <Rating
-            name="simple-controlled"
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-            size="large"
-          />
+              <div className="review-form-container">
+                <h2>What do you think about this book?</h2>
+              </div>
 
-          {/* <div className="rating-stars-container">
+              <Rating
+                name="simple-controlled"
+                value={value}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
+                }}
+                size="large"
+              />
+              {/* <div className="rating-stars-container">
             <div className="review-stars">
               {[1, 2, 3, 4, 5].map((star) => (
                 <svg
@@ -92,26 +120,26 @@ function BookDetails2({}) {
               ))}
             </div>
           </div> */}
+              <div className="input-form-container">
+                <LabelInput
+                  outlined={true}
+                  required={false}
+                  label="Title"
+                  placeholder="Enter review title (optional)"
+                  onChange={(e) => {}}
+                />
 
-          <div className="input-form-container">
-            <LabelInput
-              outlined={true}
-              required={false}
-              label="Title"
-              placeholder="Enter review title (optional)"
-              onChange={(e) => {}}
-            />
+                <LabelTextArea
+                  outlined={true}
+                  label="Review"
+                  placeholder="Enter your review"
+                  onChange={(e) => {}}
+                />
 
-            <LabelTextArea
-              outlined={true}
-              label="Review"
-              placeholder="Enter your review"
-              onChange={(e) => {}}
-            />
-
-            <ActionButton label="Submit" onClick={() => {}} />
-          </div>
-
+                <ActionButton label="Submit" onClick={() => {}} />
+              </div>
+            </>
+          )}
           <hr className="divider" />
 
           <h2>Reviews</h2>

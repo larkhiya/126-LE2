@@ -4,11 +4,12 @@ import "./style/BookStyle.css";
 import "./style/NavBar.css";
 import Book from "./components/Book.js";
 import TopReviewer from "./components/TopReviewer.js";
-import { users } from "./DummyData.js";
+// import { users } from "./DummyData.js";
 import { useData } from "../context/DataContext.js";
 
 export default function Home() {
-  const { books } = useData();
+  const { books, users } = useData();
+
   return (
     <div className="home-container">
       <div className="banner">
@@ -57,7 +58,7 @@ export default function Home() {
           <div className="book-row">
             {users
               .slice(0, 5)
-              .sort((a, b) => b.reviewsWritten - a.reviewsWritten)
+              .sort((a, b) => b.review_count - a.review_count)
               .map((user, index) => (
                 <div key={index}>
                   <TopReviewer user={user} />

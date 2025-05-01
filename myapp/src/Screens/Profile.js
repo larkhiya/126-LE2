@@ -7,36 +7,8 @@ import axios from "axios";
 import { useData } from "../context/DataContext.js";
 
 export default function Profile() {
-    const {contributedBooks, readBooks, readingBooks } = useData();
-    const { authTokens, logoutUser } = useContext(AuthContext);
-    let [profile, setProfile] = useState({})
+    const {profile, contributedBooks, readBooks, readingBooks } = useData();
 
-    useEffect(() => {
-        getProfile()
-    },[])
-
-    const getProfile = async () => {
-        try {
-          const response = await axios.get('http://127.0.0.1:8000/api/profile', {
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + String(authTokens.access)
-            }
-          });
-          
-          // Check for successful response status
-          if (response.status === 200) {
-            setProfile(response.data);
-          }
-        } catch (error) {
-          // Handle errors (e.g., Unauthorized)
-          if (error.response && error.response.status === 401) {
-            logoutUser();
-          } else {
-            console.error('Error in the get method', error);
-          }
-        }
-      };
 
   return (
     <div className="profile-container">

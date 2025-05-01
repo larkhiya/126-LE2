@@ -7,8 +7,8 @@ function TopReviewer({ user }) {
       <div className="reviewer"></div>
 
       <div className="reviewer-container label">
-        <p>{user.name}</p>
-        <p>{user.reviewsWritten} reviewed</p>
+        <p>{user.username}</p>
+        <p>{user.review_count} reviewed</p>
       </div>
     </div>
   );
