@@ -70,6 +70,24 @@ h2 {
   letter-spacing: -0.06rem;
 }
 
+.button-group {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.625rem;
+  width: 100%;
+}
+
+.button-group2 {
+  display: flex;
+  flex-direction: row;
+  gap: 0.3125rem;
+  width: 15%;
+}
+
+.button-group button {
+  flex: 1;
+}
 /* --- Book Info --- */
 .book-title {
   font-size: 2rem;
@@ -644,6 +662,16 @@ button {
   stroke-width: 2px;
 }
 
+.remove-from-shelf{
+  transition: ease 0.5s;
+}
+.remove-from-shelf:hover{
+  cursor: pointer;
+  color: #d77676;
+  text-decoration: underline;
+  
+}
+
 @media screen and (max-width: 1023px) {
   .book-main-section {
     flex-direction: column;
@@ -652,7 +680,7 @@ button {
   }
 
   .book-info-container {
-    margin: 0rem 2rem;
+    margin: 0rem 1rem;
   }
 }
 @media screen and (max-width: 767px) {

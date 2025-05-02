@@ -28,7 +28,7 @@ export default function Profile() {
             </div>
 
             <div className="shelf-section">
-              <h2>Read</h2>
+              <h2>Have read</h2>
               <div className="book-row">
                 {readBooks
                   .sort((a, b) => a.title - b.title)

@@ -21,6 +21,7 @@ export const DataProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const { authTokens, logoutUser } = useContext(AuthContext);
   const [profile, setProfile] = useState({});
+  const [userBookStatus, setUserBookStatus] = useState(null);
 
   const fetchUsers = async () => {
     try {
@@ -112,11 +113,43 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  const fetchBookStatus = async (id) => {
+    try {
+      const response = await axios.get(
+        "http://127.0.0.1:8000/api/user/bookStatus/status/",
+        {
+          params: { book: id }, // this is the query param
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + String(authTokens.access),
+          },
+        }
+      );
+
+      setUserBookStatus(response.data.status); // 'read', 'reading', etc.
+      console.log("Status got:", response.data);
+    } catch (error) {
+      if (error.response?.status === 400) {
+        alert("Bad request: " + JSON.stringify(error.response.data));
+      } else if (error.response?.status === 401) {
+        alert("Unauthorized: Please log in.");
+      } else {
+        console.error(error);
+      }
+    }
+  };
+
   // Initial fetch of public data
   useEffect(() => {
     const initialFetch = async () => {
       setLoading(true);
-      await Promise.all([fetchBooks(), fetchGenres(), fetchProfile(), fetchUserBooks(), fetchUsers()]);
+      await Promise.all([
+        fetchBooks(),
+        fetchGenres(),
+        fetchProfile(),
+        fetchUserBooks(),
+        fetchUsers(),
+      ]);
       setLoading(false);
     };
 
@@ -134,7 +167,13 @@ export const DataProvider = ({ children }) => {
   // Combine all fetchFunctions into a refresh function
   const refreshAllData = async () => {
     setLoading(true);
-    await Promise.all([fetchBooks(), fetchGenres(), fetchProfile(), fetchUserBooks(), fetchUsers()]);
+    await Promise.all([
+      fetchBooks(),
+      fetchGenres(),
+      fetchProfile(),
+      fetchUserBooks(),
+      fetchUsers(),
+    ]);
     if (authTokens) {
       await fetchUserBooks();
       await fetchProfile();
@@ -158,11 +197,13 @@ export const DataProvider = ({ children }) => {
         readingBooks,
         loading,
         profile,
+        userBookStatus,
         fetchUsers,
         fetchProfile,
         fetchBooks,
         fetchGenres,
         fetchUserBooks,
+        fetchBookStatus,
         refreshAllData,
         refreshBooks,
       }}

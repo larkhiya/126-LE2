@@ -3,21 +3,27 @@ import Book from "./components/Book";
 import LabelInput from "./components/Labelnput";
 import ActionButton from "../Buttons/ActionButton";
 import StarIcon from "@mui/icons-material/Star";
-import { MessageCircleMore, Send } from "lucide-react";
+import { MessageCircleMore, PlayIcon, PlusIcon, Send } from "lucide-react";
 import LabelTextArea from "./components/LabelTextArea.js";
 import { useNavigate, useParams } from "react-router-dom";
-import { Dialog, Rating } from "@mui/material";
+import { CircularProgress, Dialog, Rating } from "@mui/material";
 import axios from "axios";
 import AuthContext from "../context/AuthContext";
 import DataContext from "../context/DataContext.js";
 import OutlineButton from "../Buttons/OutlineButton.js";
+import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import StatusButton from "../Buttons/StateButton";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 function BookDetails2() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { authTokens } = useContext(AuthContext);
-  const { refreshBooks } = useContext(DataContext);
+  const { user, authTokens } = useContext(AuthContext);
+  const { refreshBooks, userBookStatus, fetchBookStatus, contributedBooks } =
+    useContext(DataContext);
   const [book, setBook] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,6 +40,15 @@ function BookDetails2() {
 
   const [updatingStatus, setUpdatingStatus] = useState(false);
   const [bookStateDialog, setbookStateDialog] = useState(false);
+  const [isContributed, setIsContributed] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+
+  const shelfLabel =
+    userBookStatus === "reading"
+      ? "Currently Reading"
+      : userBookStatus === "read"
+      ? "Have read"
+      : "Shelf";
 
   // Fetch book details and reviews
   useEffect(() => {
@@ -52,7 +67,11 @@ function BookDetails2() {
             : {}
         );
         setBook(bookResponse.data);
-
+        setIsContributed(
+          contributedBooks.some(
+            (contributedBook) => contributedBook.id === bookResponse.data.id
+          )
+        );
         // Get reviews for this book
         const reviewsResponse = await axios.get(
           `http://127.0.0.1:8000/api/books/${id}/reviews/`,
@@ -67,6 +86,7 @@ function BookDetails2() {
 
         setReviews(reviewsResponse.data);
 
+        fetchBookStatus(id);
 
         setLoading(false);
       } catch (error) {
@@ -211,6 +231,8 @@ function BookDetails2() {
       );
 
       refreshBooks();
+      fetchBookStatus(id);
+      setbookStateDialog(false);
       console.log("Status set:", response.data);
     } catch (error) {
       if (error.response?.status === 400) {
@@ -233,6 +255,7 @@ function BookDetails2() {
       );
       console.log("Book removed from shelf");
       refreshBooks();
+      fetchBookStatus(id);
       setbookStateDialog(false);
     } catch (error) {
       if (error.response?.status === 404) {
@@ -262,7 +285,7 @@ function BookDetails2() {
       .catch((err) => console.error("Delete failed:", err));
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <CircularProgress color="secondary" />;
   if (!book) return <p>Book not found</p>;
 
   return (
@@ -283,37 +306,139 @@ function BookDetails2() {
           },
         }}
       >
-        <OutlineButton label="read" onClick={() => setBookStatus("read")} />
-        <OutlineButton
-          label="currently reading"
+        <h1>Add to shelf</h1>
+        <StatusButton
+          label="Have read"
+          buttonStatus="read"
+          bookStatus={userBookStatus}
+          onClick={() => setBookStatus("read")}
+        />
+        <StatusButton
+          label="Currently reading"
+          buttonStatus="reading"
+          bookStatus={userBookStatus}
           onClick={() => setBookStatus("reading")}
         />
-        <OutlineButton
-          label="remove from shelf"
-          onClick={() => removeBookFromShelf()}
-        />
+        <button onClick={() => removeBookFromShelf()}>
+          <p className="remove-from-shelf">Remove from shelf</p>
+        </button>
       </Dialog>
+
+      <Dialog
+        open={deleteConfirmation}
+        onClose={() => {
+          setDeleteConfirmation(false);
+        }}
+        sx={{
+          "& .MuiDialog-paper": {
+            backgroundColor: "#FBE5DC",
+            borderRadius: "10px",
+            width: "100%",
+            maxWidth: "30rem",
+            padding: "1rem",
+            gap: "1.5rem",
+          },
+        }}
+      >
+        <h1>Delete contributed book?</h1>
+        <p>
+          {" "}
+          Are you sure you want to remove your contibuted book in our library?
+          This action cannot be undone and it will remove the contributed book
+          permanently.
+        </p>
+        <ActionButton label="Remove from library" onClick={uncontribute} />
+      </Dialog>
+
       <div className="book-main-section">
         <div className="book-cover-container">
           <Book book={book} showLabel={false} />
-          <ActionButton
-            label="Read"
-            stretched={true}
-            onClick={() => setbookStateDialog(true)}
-            disabled={updatingStatus}
-          />
-
-          <ActionButton
-            label="Delete"
-            onClick={uncontribute}
-            stretched={true}
-          />
         </div>
 
         <div className="book-info-container">
           <div>
             <h1>{book.title}</h1>
             <h2>{book.author}</h2>
+          </div>
+
+          <div className="button-group">
+            <ActionButton
+              icon={
+                !userBookStatus ? (
+                  <AddIcon
+                    sx={{
+                      color: "white",
+                      fontSize: {
+                        xs: "1rem",
+                        sm: "1rem",
+                        md: "1.2rem",
+                        lg: "1.2rem",
+                      },
+                    }}
+                  />
+                ) : (
+                  <ExpandMoreIcon
+                    sx={{
+                      color: "white",
+                      fontSize: {
+                        xs: "1rem",
+                        sm: "1rem",
+                        md: "1.6rem",
+                        lg: "1.6rem",
+                      },
+                    }}
+                  />
+                )
+              }
+              label={shelfLabel}
+              stretched={true}
+              onClick={() => setbookStateDialog(true)}
+              disabled={updatingStatus}
+            />
+
+            {isContributed && (
+              <div className="button-group2">
+                <ActionButton
+                  iconOnly={true}
+                  icon={
+                    <EditIcon
+                      className="icon-button"
+                      sx={{
+                        fontSize: {
+                          xs: "1rem",
+                          sm: "1rem",
+                          md: "1.2rem",
+                          lg: "1.2rem",
+                        },
+                      }}
+                    />
+                  }
+                  onClick={() => {}}
+                  stretched={true}
+                />
+
+                <ActionButton
+                  iconOnly={true}
+                  icon={
+                    <DeleteIcon
+                      className="icon-button"
+                      sx={{
+                        fontSize: {
+                          xs: "1rem",
+                          sm: "1rem",
+                          md: "1.2rem",
+                          lg: "1.2rem",
+                        },
+                      }}
+                    />
+                  }
+                  onClick={() => {
+                    setDeleteConfirmation(true);
+                  }}
+                  stretched={true}
+                />
+              </div>
+            )}
           </div>
 
           <div className="rating">
@@ -410,7 +535,7 @@ function BookDetails2() {
                       style={{
                         display: "block",
                         marginTop: "0.5rem",
-                        fontWeight: "bold",
+                        fontWeight: "500",
                       }}
                     >
                       {review.title}

@@ -25,6 +25,7 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 function Discover() {
+  
   const { books, refreshBooks, genres } = useData();
   const { user, authTokens } = useContext(AuthContext);
 
@@ -195,7 +196,13 @@ function Discover() {
       >
         <div className="contribute-container">
           <h1>Contribute a book</h1>
-          <form>
+          <form
+            style={{
+              gap: "1.25rem",
+              maxHeight: "50vh", // or any height constraint
+              overflowY: "auto",
+            }}
+          >
             <LabelInput
               label="Title"
               placeholder="Enter book's title"
@@ -217,38 +224,108 @@ function Discover() {
               placeholder="Enter image URL"
               onChange={(e) => setCoverUrl(e.target.value)}
             />
-          </form>
 
-          <Autocomplete
-            multiple
-            onChange={(event, newValue) => setSelectedGenres(newValue)}
-            id="checkboxes-tags-demo"
-            options={genres}
-            disableCloseOnSelect
-            getOptionLabel={(option) => option.name}
-            renderOption={(props, option, { selected }) => {
-              const { key, ...optionProps } = props;
-              return (
-                <li key={key} {...optionProps}>
-                  <Checkbox
-                    icon={icon}
-                    checkedIcon={checkedIcon}
-                    style={{ marginRight: 8 }}
-                    checked={selected}
-                  />
-                  {option.name}
-                </li>
-              );
-            }}
-            style={{ width: 500 }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Checkboxes"
-                placeholder="Favorites"
-              />
-            )}
-          />
+            <Autocomplete
+              multiple
+              onChange={(event, newValue) => setSelectedGenres(newValue)}
+              id="checkboxes-tags-demo"
+              options={genres}
+              disableCloseOnSelect
+              getOptionLabel={(option) => option.name}
+              renderOption={(props, option, { selected }) => {
+                const { key, ...optionProps } = props;
+                return (
+                  <li
+                    key={key}
+                    {...optionProps}
+                    style={{
+                      fontFamily: "Inter",
+                      fontWeight: 500,
+                      letterSpacing: "-0.03375rem",
+                      fontSize: '1.25rem',
+                      color: '#683737',
+                    }}
+                  >
+                    <Checkbox
+                      icon={icon}
+                      checkedIcon={checkedIcon}
+                      checked={selected}
+                      sx={{
+                        marginRight: 1,
+                        color: '#683737',
+                        "&.Mui-checked": {
+                          color: "#d96b63", // Checked color
+                        },
+                      }}
+                    />
+                    {option.name}
+                  </li>
+                );
+              }}
+              style={{ width: "100%" }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Select genre"
+                  placeholder=""
+                  sx={{
+                    width: "100%",
+                    fontFamily: "Inter",
+                    fontWeight: 500, // Base font for TextField
+                    "& .MuiInputBase-root": {
+                      borderColor: "transparent",
+                      backgroundColor: "#fff",
+                      fontFamily: "Inter",
+                      fontWeight: 500,
+                      color: "#8e6969",
+                      letterSpacing: "-0.03375rem",
+                      fontSize: {
+                        xs: "0.85rem",
+                        sm: "1rem",
+                        md: "1.125rem",
+                      },
+                    },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderColor: "transparent",
+                      },
+                      "&:hover fieldset": {
+                        borderColor: "transparent",
+                      },
+                      "&.Mui-focused fieldset": {
+                        borderWidth: "1px",
+                        borderColor: "#d96b63",
+                        color: "#9F9F9F",
+                      },
+                    },
+                    "& .MuiInputLabel-root": {
+                      fontFamily: "Inter",
+                      fontWeight: 500,
+                      letterSpacing: "-0.03375rem",
+                      fontSize: {
+                        xs: "0.85rem",
+                        sm: "1rem",
+                        md: "1.125rem",
+                      },
+                      color: "#9F9F9F", // Font for label
+                    },
+                    "& .MuiAutocomplete-tag": {
+                      fontFamily: "Inter",
+                      fontWeight: 500,
+                      color: "white",
+                      letterSpacing: "-0.03375rem",
+                      fontSize: {
+                        xs: "0.85rem",
+                        sm: "1rem",
+                        md: "1.125rem",
+                      },
+                      backgroundColor: "#D77676", // Font for selected tags
+                    },
+                  }}
+                />
+              )}
+            />
+          </form>
 
           <ActionButton
             stretched="true"
