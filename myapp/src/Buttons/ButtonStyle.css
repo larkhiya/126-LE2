@@ -34,6 +34,7 @@
   margin: 0;
   text-align: inherit;
   font: inherit;
+  white-space: nowrap;       
 }
 
 .outline-button p {

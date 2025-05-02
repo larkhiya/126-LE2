@@ -129,6 +129,14 @@
   width: 100%;
 }
 
+.filter-button{
+  padding: 0.5rem 1rem;
+}
+
+.filter-button:hover{
+  background-color: rgb(243, 243, 243);
+  cursor: pointer;
+}
 /* Mobile styles */
 @media screen and (max-width: 47.9375rem) {
   .empty-book-slot {

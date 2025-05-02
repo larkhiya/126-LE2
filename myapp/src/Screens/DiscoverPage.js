@@ -5,7 +5,13 @@ import "./style/InputStyle.css";
 import ActionButton from "../Buttons/ActionButton";
 import AddIcon from "@mui/icons-material/Add";
 import Book from "./components/Book";
-import { Autocomplete, Checkbox, Dialog, Menu } from "@mui/material";
+import {
+  Autocomplete,
+  Checkbox,
+  Dialog,
+  IconButton,
+  Menu,
+} from "@mui/material";
 import OutlineButton from "../Buttons/OutlineButton";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SearchBar from "./components/SearchBar";
@@ -20,12 +26,12 @@ import AuthContext from "../context/AuthContext";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import TextField from "@mui/material/TextField";
+import CloseIcon from "@mui/icons-material/Close";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 function Discover() {
-  
   const { books, refreshBooks, genres } = useData();
   const { user, authTokens } = useContext(AuthContext);
 
@@ -45,6 +51,8 @@ function Discover() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const booksRef = useRef(null); // ref to scroll to books grid
+  const [selectedGenreId, setSelectedGenreId] = useState(null);
+  const selectedGenre = genres.find((g) => g.id === selectedGenreId);
 
   const handleContributeBook = async () => {
     try {
@@ -106,6 +114,11 @@ function Discover() {
       }
     }
   };
+
+  const handleFilter = (genre) => {
+    setSelectedGenreId(genre.id);
+    setAnchorEl(null);
+  };
   // Get booksPerPage from CSS variable and track window width
   useEffect(() => {
     const updateBooksPerPage = () => {
@@ -148,10 +161,14 @@ function Discover() {
     .sort((a, b) => a.title.localeCompare(b.title))
     .filter((book) => {
       const query = searchQuery.toLowerCase();
-      return (
+      const matchesSearch =
         book.title.toLowerCase().includes(query) ||
-        book.author.toLowerCase().includes(query)
-      );
+        book.author.toLowerCase().includes(query);
+
+      const matchesGenre =
+        !selectedGenreId || book.genres.some((g) => g.id === selectedGenreId);
+
+      return matchesSearch && matchesGenre;
     });
 
   const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
@@ -242,8 +259,8 @@ function Discover() {
                       fontFamily: "Inter",
                       fontWeight: 500,
                       letterSpacing: "-0.03375rem",
-                      fontSize: '1.25rem',
-                      color: '#683737',
+                      fontSize: "1.25rem",
+                      color: "#683737",
                     }}
                   >
                     <Checkbox
@@ -252,7 +269,7 @@ function Discover() {
                       checked={selected}
                       sx={{
                         marginRight: 1,
-                        color: '#683737',
+                        color: "#683737",
                         "&.Mui-checked": {
                           color: "#d96b63", // Checked color
                         },
@@ -354,20 +371,44 @@ function Discover() {
             <SearchBar onChange={(e) => setSearchQuery(e.target.value)} />
             <div>
               <OutlineButton
+                onIconTap={() => setSelectedGenreId(null)}
                 icon={
-                  <FilterListIcon
-                    sx={{ color: "#D77676", fontSize: "1.2rem;" }}
-                  />
+                  !selectedGenreId ? (
+                    <FilterListIcon
+                      sx={{ color: "#D77676", fontSize: {
+                        sm: "0.8rem",  
+                        md: "1.2rem",  
+                      }}}
+                    />
+                  ) : (
+                    <CloseIcon sx={{ color: "#D77676", fontSize: "1.2rem" }} />
+                  )
                 }
                 onClick={(e) => setAnchorEl(e.currentTarget)}
-                label="Filter"
+                label={selectedGenre ? selectedGenre.name : "Filter"}
               />
+
               <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
                 open={openFilter}
                 onClose={() => setAnchorEl(null)}
-              ></Menu>
+                PaperProps={{
+                  style: {
+                    maxHeight: "20rem",
+                    overflowY: "auto",
+                    boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.08)",
+                    border: "1px solid #d77676",
+                    marginTop: "5px",
+                  },
+                }}
+              >
+                {genres.map((genre, index) => (
+                  <div key={index} onClick={() => handleFilter(genre)}>
+                    <p className="filter-button">{genre.name}</p>
+                  </div>
+                ))}
+              </Menu>
             </div>
           </div>
         </div>
