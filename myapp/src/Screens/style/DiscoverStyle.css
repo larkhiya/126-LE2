@@ -119,6 +119,16 @@
   color: white;
 }
 
+.pagination-controls button:disabled {
+  opacity: 0;
+  cursor: not-allowed;
+  pointer-events: none; 
+}
+
+.pagination-controls button:not(:disabled):hover {
+  background-color: rgba(215, 118, 118, 0.1);
+}
+
 .empty-book-slot {
   visibility: hidden;
   min-height: 18rem;
@@ -128,6 +138,7 @@
   height: 2.5rem;
   width: 100%;
 }
+
 
 /* Mobile styles */
 @media screen and (max-width: 47.9375rem) {
