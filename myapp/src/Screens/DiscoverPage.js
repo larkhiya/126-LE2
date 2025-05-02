@@ -26,7 +26,7 @@ const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 function Discover() {
   const { books, refreshBooks, genres } = useData();
-  const { authTokens } = useContext(AuthContext);
+  const { user, authTokens } = useContext(AuthContext);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [openDialog, setDialogOpen] = useState(false);
@@ -263,11 +263,14 @@ function Discover() {
         <div className="discover-header">
           <div className="discover-contribute">
             <h1>All books</h1>
-            <ActionButton
-              icon={<AddIcon sx={{ color: "white", fontSize: "1.2rem;" }} />}
-              onClick={() => setDialogOpen(true)}
-              label="Contribute"
-            />
+
+            {user && (
+              <ActionButton
+                icon={<AddIcon sx={{ color: "white", fontSize: "1.2rem;" }} />}
+                onClick={() => setDialogOpen(true)}
+                label="Contribute"
+              />
+            )}
           </div>
 
           <div className="search-filter">
