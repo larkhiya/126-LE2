@@ -5,14 +5,19 @@ import ActionButton from "../Buttons/ActionButton";
 import StarIcon from "@mui/icons-material/Star";
 import { MessageCircleMore, Send } from "lucide-react";
 import LabelTextArea from "./components/LabelTextArea.js";
-import { useParams } from "react-router-dom";
-import { Rating } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
+import { Dialog, Rating } from "@mui/material";
 import axios from "axios";
 import AuthContext from "../context/AuthContext";
+import DataContext from "../context/DataContext.js";
+import OutlineButton from "../Buttons/OutlineButton.js";
 
 function BookDetails2() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const { authTokens } = useContext(AuthContext);
+  const { refreshBooks } = useContext(DataContext);
   const [book, setBook] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,9 +32,8 @@ function BookDetails2() {
   const [newCommentTexts, setNewCommentTexts] = useState({});
   const [submittingComment, setSubmittingComment] = useState(false);
 
-  // Book status state
-  const [bookStatus, setBookStatus] = useState(null);
   const [updatingStatus, setUpdatingStatus] = useState(false);
+  const [bookStateDialog, setbookStateDialog] = useState(false);
 
   // Fetch book details and reviews
   useEffect(() => {
@@ -37,45 +41,32 @@ function BookDetails2() {
       try {
         setLoading(true);
         // Get book details
-        const bookResponse = await axios.get(`http://127.0.0.1:8000/api/books/${id}/`, 
-          authTokens ? {
-            headers: {
-              'Authorization': `Bearer ${authTokens.access}`
-            }
-          } : {}
+        const bookResponse = await axios.get(
+          `http://127.0.0.1:8000/api/books/${id}/`,
+          authTokens
+            ? {
+                headers: {
+                  Authorization: `Bearer ${authTokens.access}`,
+                },
+              }
+            : {}
         );
         setBook(bookResponse.data);
 
         // Get reviews for this book
-        const reviewsResponse = await axios.get(`http://127.0.0.1:8000/api/books/${id}/reviews/`, 
-          authTokens ? {
-            headers: {
-              'Authorization': `Bearer ${authTokens.access}`
-            }
-          } : {}
+        const reviewsResponse = await axios.get(
+          `http://127.0.0.1:8000/api/books/${id}/reviews/`,
+          authTokens
+            ? {
+                headers: {
+                  Authorization: `Bearer ${authTokens.access}`,
+                },
+              }
+            : {}
         );
+
         setReviews(reviewsResponse.data);
 
-        // Check if user has a status for this book
-        try {
-          const statusResponse = await axios.get(
-            `http://127.0.0.1:8000/api/book-statuses/`,
-            {
-              headers: {
-                Authorization: `Bearer ${authTokens?.access}`,
-              },
-            }
-          );
-          const userStatus = statusResponse.data.find(
-            (status) => status.book === parseInt(id)
-          );
-
-          if (userStatus) {
-            setBookStatus(userStatus.status);
-          }
-        } catch (error) {
-          console.error("Error fetching book status:", error);
-        }
 
         setLoading(false);
       } catch (error) {
@@ -206,32 +197,69 @@ function BookDetails2() {
     }
   };
 
-  // Update book status (read/reading)
-  const handleUpdateBookStatus = async (status) => {
+  const setBookStatus = async (status) => {
     try {
-      setUpdatingStatus(true);
-
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/book-statuses/",
-        {
-          book: parseInt(id),
-          status: status,
-        },
+        "http://127.0.0.1:8000/api/user/bookStatus/",
+        { book: id, status },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${authTokens?.access}`,
+            Authorization: "Bearer " + String(authTokens.access),
           },
         }
       );
 
-      setBookStatus(status);
-      setUpdatingStatus(false);
+      refreshBooks();
+      console.log("Status set:", response.data);
     } catch (error) {
-      console.error("Error updating book status:", error);
-      alert("Error updating book status. Please try again.");
-      setUpdatingStatus(false);
+      if (error.response?.status === 400) {
+        alert("Bad request: " + JSON.stringify(error.response.data));
+      } else if (error.response?.status === 401) {
+        alert("Unauthorized: Please log in.");
+      }
     }
+  };
+
+  const removeBookFromShelf = async () => {
+    try {
+      const response = await axios.delete(
+        `http://127.0.0.1:8000/api/user/bookStatus/remove/?book=${id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + String(authTokens.access),
+          },
+        }
+      );
+      console.log("Book removed from shelf");
+      refreshBooks();
+      setbookStateDialog(false);
+    } catch (error) {
+      if (error.response?.status === 404) {
+        alert("Book not found on your shelf");
+      } else if (error.response?.status === 401) {
+        alert("Unauthorized: Please log in.");
+      } else {
+        console.error("Error removing book from shelf:", error);
+        alert("Failed to remove book from shelf. Please try again.");
+      }
+    }
+  };
+
+  const uncontribute = () => {
+    axios
+      .delete(`http://127.0.0.1:8000/api/books/${id}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
+        },
+      })
+      .then(() => {
+        console.log("Book deleted");
+        refreshBooks();
+        navigate("/discover");
+      })
+      .catch((err) => console.error("Delete failed:", err));
   };
 
   if (loading) return <p>Loading...</p>;
@@ -239,18 +267,46 @@ function BookDetails2() {
 
   return (
     <div className="book-details-page">
+      <Dialog
+        open={bookStateDialog}
+        onClose={() => {
+          setbookStateDialog(false);
+        }}
+        sx={{
+          "& .MuiDialog-paper": {
+            backgroundColor: "#FBE5DC",
+            borderRadius: "10px",
+            width: "100%",
+            maxWidth: "20rem",
+            padding: "1rem",
+            gap: "0.5rem",
+          },
+        }}
+      >
+        <OutlineButton label="read" onClick={() => setBookStatus("read")} />
+        <OutlineButton
+          label="currently reading"
+          onClick={() => setBookStatus("reading")}
+        />
+        <OutlineButton
+          label="remove from shelf"
+          onClick={() => removeBookFromShelf()}
+        />
+      </Dialog>
       <div className="book-main-section">
         <div className="book-cover-container">
           <Book book={book} showLabel={false} />
           <ActionButton
-            label={bookStatus === "reading" ? "Reading" : "Read"}
+            label="Read"
             stretched={true}
-            onClick={() =>
-              handleUpdateBookStatus(
-                bookStatus === "reading" ? "read" : "reading"
-              )
-            }
+            onClick={() => setbookStateDialog(true)}
             disabled={updatingStatus}
+          />
+
+          <ActionButton
+            label="Delete"
+            onClick={uncontribute}
+            stretched={true}
           />
         </div>
 
