@@ -51,7 +51,7 @@ It allows users to share reviews, leave comments, track their reading journey, a
   - **Contributed Books**
 - Export entire shelf to a downloadable CSV file
 - Personalized user page displaying reading activity and contributions
-<div><img src="myapp/public/images/myshelf.png" alt="myshelf" width=50% height=auto ></div>
+<div><img src="myapp/public/images/myshelf.png" alt="myshelf" width=50% height=auto></div>
 
 
 ### Book Database and Search
@@ -137,7 +137,8 @@ Follow the steps below to get the project running locally:
 1. Clone the Repository
 * Clone the repository to your local machine:
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/github_username/repo_name.git](https://github.com/larkhiya/126-LE2-frontend.git
+   git clone https://github.com/ethanny/le2-backend.git
    ```     
 2. Set up the Frontend (React)
 
