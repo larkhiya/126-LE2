@@ -5,7 +5,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/larkhiya/126-LE2-frontend">
-    <img src="myapp/public/logo192.png" alt="Logo" width="80" height="80">
+    <img src="myapp/public/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Biblion: Let Your Books Roar </h3>
@@ -43,13 +43,35 @@ It allows users to share reviews, leave comments, track their reading journey, a
 
 ## Features
 
-### User Login and Registration
-- Secure registration and login via Django’s auth system
-- Personalized user profiles showcasing reviews and reading history
+### User Login & Registration
+- Secure registration and login using Django’s authentication system
+- Access control for authenticated-only features
+
+<div align="center">
+    <img src="myapp/public/myshelf.png" alt="Logo" width="80" height="80">
+</div>
+
+### User Profile & Shelf
+- View personal book shelf organized by reading status:
+  - **Want to Read**
+  - **Currently Reading**
+  - **Have Read**
+  - **Contributed Books**
+- Export entire shelf to a downloadable CSV file
+- Personalized user page displaying reading activity and contributions
+
+### User-Restricted Actions
+- Users must be logged in to:
+  - Get personalized book recommendations
+  - Contribute (add) a new book
+  - Submit, edit, or delete reviews with star ratings
+  - Leave or delete comments on reviews
 
 ### Book Database and Search
-- Add new books (title, author, genre, cover image URL)
+- Add new books (title, author, genre, synopsis, cover image URL)
 - Browse and search books by title, author, or genre
+- Filter books by genre for easier discovery
+- Export personal reading list as a CSV file
 
 ### Add/Edit/Delete Reviews
 - Create reviews with a text body, optional title, and 1–5 star rating
@@ -60,11 +82,17 @@ It allows users to share reviews, leave comments, track their reading journey, a
 - Comment on any review to discuss, agree, or recommend other books
 - Delete your own comments with basic moderation tools
 
+
+<div align="center">
+    <img src="myapp/public/home.png" alt="Logo" width="80" height="80">
+</div>
+
 ### Trending Books & Top Reviewers
 - Landing page highlights:
   - Books with the highest average ratings
   - Most reviewed books
   - Most active users (Top reviewers)
+  - Recommended Books (Based on the user's top read genre)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -188,11 +216,10 @@ Thanks to these amazing people for bringing **Biblion** to life!
 - **Larkhiya Johnnyl Wong** — [lcwong@up.edu.ph](mailto:lcwong@up.edu.ph)
 - **Al Glenrey Tilacas** — [aatilacas@up.edu.ph](mailto:aatilacas@up.edu.ph)
 
-Project Link: https://github.com/larkhiya/126-LE2-frontend
-
+Project Link:
+FrontEnd: https://github.com/larkhiya/126-LE2-frontend
+BackEnd: https://github.com/ethanny/126-LE2-BACKEND
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 
 
