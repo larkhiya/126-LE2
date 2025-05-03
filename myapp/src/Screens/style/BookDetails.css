@@ -317,6 +317,10 @@ h2 {
   border-radius: 0.625rem;
   border: 2.5px solid #d77676;
   background: #fff3c9;
+  background-image: url("/public/images/user-profile.svg");
+  background-repeat: no-repeat;
+  background-size: cover; /* or 'cover' depending on the effect you want */
+  background-position: center;
 }
 
 .review-content {

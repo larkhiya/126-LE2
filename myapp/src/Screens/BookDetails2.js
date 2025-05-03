@@ -42,12 +42,15 @@ function BookDetails2() {
   const [bookStateDialog, setbookStateDialog] = useState(false);
   const [isContributed, setIsContributed] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+  const [editDialog, setEditDialog] = useState(false);
 
   const shelfLabel =
     userBookStatus === "reading"
       ? "Currently Reading"
       : userBookStatus === "read"
       ? "Have read"
+      : userBookStatus === "want"
+      ? "Want to Read"
       : "Shelf";
 
   // Fetch book details and reviews
@@ -308,6 +311,12 @@ function BookDetails2() {
       >
         <h1>Add to shelf</h1>
         <StatusButton
+          label="Want to read"
+          buttonStatus="want"
+          bookStatus={userBookStatus}
+          onClick={() => setBookStatus("want")}
+        />
+        <StatusButton
           label="Have read"
           buttonStatus="read"
           bookStatus={userBookStatus}
@@ -348,6 +357,10 @@ function BookDetails2() {
           permanently.
         </p>
         <ActionButton label="Remove from library" onClick={uncontribute} />
+      </Dialog>
+
+      <Dialog open={editDialog} onClose={() => setEditDialog(false)}>
+        <h1>Edit contributed book</h1>
       </Dialog>
 
       <div className="book-main-section">
@@ -398,11 +411,12 @@ function BookDetails2() {
 
             {isContributed && (
               <div className="button-group2">
-                <ActionButton
+                {/* <ActionButton
                   iconOnly={true}
                   icon={
                     <EditIcon
                       className="icon-button"
+                      onClick={() => setEditDialog(true)}
                       sx={{
                         fontSize: {
                           xs: "1rem",
@@ -415,7 +429,7 @@ function BookDetails2() {
                   }
                   onClick={() => {}}
                   stretched={true}
-                />
+                /> */}
 
                 <ActionButton
                   iconOnly={true}

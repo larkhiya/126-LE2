@@ -18,6 +18,8 @@ export const DataProvider = ({ children }) => {
   const [contributedBooks, setContributedBooks] = useState([]);
   const [readBooks, setReadBooks] = useState([]);
   const [readingBooks, setReadingBooks] = useState([]);
+  const [wantBooks, setWantBooks] = useState([]);
+  const [recommendedBooks, setRecommendedBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const { authTokens, logoutUser } = useContext(AuthContext);
   const [profile, setProfile] = useState({});
@@ -75,8 +77,10 @@ export const DataProvider = ({ children }) => {
 
       // Adjust based on your backend response keys
       setContributedBooks(response.data.contributed || []);
+      setWantBooks(response.data.want || []);
       setReadBooks(response.data.read || []);
       setReadingBooks(response.data.reading || []);
+      setRecommendedBooks(response.data.recommended || []);
 
       return response.data;
     } catch (error) {
@@ -193,8 +197,10 @@ export const DataProvider = ({ children }) => {
         books,
         genres,
         contributedBooks,
+        wantBooks,
         readBooks,
         readingBooks,
+        recommendedBooks,
         loading,
         profile,
         userBookStatus,
