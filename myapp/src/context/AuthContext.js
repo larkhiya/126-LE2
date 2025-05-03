@@ -30,26 +30,43 @@ export const AuthProvider = ({ children }) => {
 
   let loginUser = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://127.0.0.1:8000/api/token/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: e.target.username.value,
-        password: e.target.password.value,
-      }),
-    });
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/token/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: e.target.username.value,
+          password: e.target.password.value,
+        }),
+      });
 
-    let data = await response.json();
+      let data = await response.json();
 
-    if (data) {
-      localStorage.setItem("authTokens", JSON.stringify(data));
-      setAuthTokens(data);
-      setUser(jwtDecode(data.access));
-      navigate("/");
-    } else {
-      alert("Something went wrong while logging in the user!");
+      if (response.status === 200) {
+        localStorage.setItem("authTokens", JSON.stringify(data));
+        setAuthTokens(data);
+        setUser(jwtDecode(data.access));
+        navigate("/");
+        return { success: true };
+      } else {
+        // Handle different error cases based on status code or response data
+        if (response.status === 401 || data.detail === "No active account found with the given credentials.") {
+          return { success: false, message: "Username or password is incorrect!" };
+        } else if (data.username) {
+          return { success: false, message: data.username[0] };
+        } else if (data.password) {
+          return { success: false, message: data.password[0] };
+        } else if (data.detail) {
+          return { success: false, message: data.detail };
+        } else {
+          return { success: false, message: "Login failed. Please try again." };
+        }
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      return { success: false, message: "Connection error. Please check your internet connection." };
     }
   };
 
@@ -61,20 +78,25 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateToken = async () => {
-    const response = await fetch("http://127.0.0.1:8000/api/token/refresh/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ refresh: authTokens?.refresh }),
-    });
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/token/refresh/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refresh: authTokens?.refresh }),
+      });
 
-    const data = await response.json();
-    if (response.status === 200) {
-      setAuthTokens(data);
-      setUser(jwtDecode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-    } else {
+      const data = await response.json();
+      if (response.status === 200) {
+        setAuthTokens(data);
+        setUser(jwtDecode(data.access));
+        localStorage.setItem("authTokens", JSON.stringify(data));
+      } else {
+        logoutUser();
+      }
+    } catch (error) {
+      console.error("Token refresh error:", error);
       logoutUser();
     }
 
@@ -91,6 +113,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    if (loading && authTokens) {
+      updateToken();
+    }
+    
     const REFRESH_INTERVAL = 1000 * 60 * 4; // 4 minutes
     let interval = setInterval(() => {
       if (authTokens) {
@@ -98,9 +124,11 @@ export const AuthProvider = ({ children }) => {
       }
     }, REFRESH_INTERVAL);
     return () => clearInterval(interval);
-  }, [authTokens]);
+  }, [authTokens, loading]);
 
   return (
-    <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={contextData}>
+      {children}
+    </AuthContext.Provider>
   );
 };
