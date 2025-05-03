@@ -5,22 +5,18 @@
 <br />
 <div align="center">
   <a href="https://github.com/larkhiya/126-LE2-frontend">
-    <img src="myapp/public/logo.png" alt="Logo" width="80" height="80">
+    <img src="myapp/public/images/logo.svg" alt="Logo" width="80" height="80">
   </a>
+
+
 
   <h3 align="center">Biblion: Let Your Books Roar </h3>
 
   <p align="center">
     A dynamic platform where book lovers can connect, share reviews, and discover trending reads!
-    <br />
-    <a href="https://github.com/your_username/Biblion"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/your_username/Biblion">View Demo</a>
-    ·
-    <a href="https://github.com/your_username/Biblion/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/your_username/Biblion/issues">Request Feature</a>
+    <br/>
+    <br/>
+    <br/>
   </p>
 </div>
 
@@ -47,10 +43,6 @@ It allows users to share reviews, leave comments, track their reading journey, a
 - Secure registration and login using Django’s authentication system
 - Access control for authenticated-only features
 
-<div align="center">
-    <img src="myapp/public/myshelf.png" alt="Logo" width="80" height="80">
-</div>
-
 ### User Profile & Shelf
 - View personal book shelf organized by reading status:
   - **Want to Read**
@@ -59,33 +51,33 @@ It allows users to share reviews, leave comments, track their reading journey, a
   - **Contributed Books**
 - Export entire shelf to a downloadable CSV file
 - Personalized user page displaying reading activity and contributions
+<div><img src="myapp/public/images/myshelf.png" alt="myshelf" width=50% height=auto ></div>
 
-### User-Restricted Actions
-- Users must be logged in to:
-  - Get personalized book recommendations
-  - Contribute (add) a new book
-  - Submit, edit, or delete reviews with star ratings
-  - Leave or delete comments on reviews
 
 ### Book Database and Search
 - Add new books (title, author, genre, synopsis, cover image URL)
-- Browse and search books by title, author, or genre
-- Filter books by genre for easier discovery
-- Export personal reading list as a CSV file
+  <div><img src="myapp/public/images/addbook.png" alt="review" style="width:40%; height:auto;" ></div>
+- Browse and search books by title or author. Filter books by genre.
+  <div><img src="myapp/public/images/browsebook.png" alt="review" style="width:40%; height:auto;" ></div>
+
 
 ### Add/Edit/Delete Reviews
 - Create reviews with a text body, optional title, and 1–5 star rating
+  <div><img src="myapp/public/images/creatervw.png" alt="review" style="width:40%; height:auto;"></div>
 - Edit or delete your own reviews
+  <div> <img src="myapp/public/images/deletervw.png" alt="review" style="width:40%; height:auto;" >  </div>
 - View average ratings per book
+    <div> <img src="myapp/public/images/average.png" alt="review" style="width:40%; height:auto;"> </div>
+
+
+
 
 ### Comment on Reviews
 - Comment on any review to discuss, agree, or recommend other books
 - Delete your own comments with basic moderation tools
-
-
-<div align="center">
-    <img src="myapp/public/home.png" alt="Logo" width="80" height="80">
-</div>
+  
+  <div>
+    <img src="myapp/public/images/comment.png" alt="comment" style="width:40%; height:auto;" ></div>
 
 ### Trending Books & Top Reviewers
 - Landing page highlights:
@@ -93,7 +85,15 @@ It allows users to share reviews, leave comments, track their reading journey, a
   - Most reviewed books
   - Most active users (Top reviewers)
   - Recommended Books (Based on the user's top read genre)
+ <div><img src="myapp/public/images/home.png" alt="home" width="500" height="800" ></div>
 
+### User-Restricted Actions
+- Users must be logged in to:
+  - Get personalized book recommendations
+  - Contribute (add) a new book
+  - Submit, edit, or delete reviews with star ratings
+  - Leave or delete comments on reviews
+ 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
@@ -217,8 +217,8 @@ Thanks to these amazing people for bringing **Biblion** to life!
 - **Al Glenrey Tilacas** — [aatilacas@up.edu.ph](mailto:aatilacas@up.edu.ph)
 
 Project Link:
-FrontEnd: https://github.com/larkhiya/126-LE2-frontend
-BackEnd: https://github.com/ethanny/126-LE2-BACKEND
+* FrontEnd: https://github.com/larkhiya/126-LE2-frontend
+* BackEnd: https://github.com/ethanny/126-LE2-BACKEND
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
