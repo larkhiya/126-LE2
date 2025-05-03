@@ -17,7 +17,7 @@ const LoginPage = () => {
     const password = e.target.password.value.trim();
     
     if (!username || !password) {
-      setError("All fields should not be blank");
+      setError("All fields should be filled");
       return;
     }
     
@@ -36,6 +36,11 @@ const LoginPage = () => {
       <div className="signin-container">
         <h2>Sign In</h2> 
         <form onSubmit={handleSubmit} className="signin-form">
+        {error && (
+            <div className="error-message">
+              {error}
+            </div>
+          )}
           <div className="form-item">
             <label htmlFor="username">Username</label>
             <input 
@@ -52,17 +57,13 @@ const LoginPage = () => {
           </div>
           <button type="submit" className="signin-button">Sign In</button>
           
-          {error && (
-            <div className="error-message">
-              {error}
-            </div>
-          )}
+          
         </form>
 
         <div className='bottom'>
           <div className='text'>
             <span className="line"></span>
-            <p>New to baksReader?</p>
+            <p>New to Biblion?</p>
             <span className="line"></span>
           </div>
           <button className="signup-button" onClick={() => navigate('/signup')}>Sign Up</button>

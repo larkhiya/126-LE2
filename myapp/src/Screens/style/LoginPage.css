@@ -6,14 +6,13 @@
   box-sizing: border-box;
   min-height: 100vh;
 }
+
 .error-message {
     font-family: 'Inter';
-    color: #d32f2f;
-    border-radius: 4px;
+    color: #ff5252;
     text-align: center;
-    font-size: 1.875rem;
     width: 100%;
-  }
+}
 
 .signin-container {
   margin: 0 auto;
@@ -122,11 +121,6 @@
   margin: 0;
 }
 
-.error-message {
-  color: red;
-  font-size: 0.875rem;
-  text-align: center;
-}
 
 .bottom {
   display: flex;

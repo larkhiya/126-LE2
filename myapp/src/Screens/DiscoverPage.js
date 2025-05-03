@@ -53,8 +53,10 @@ function Discover() {
   const booksRef = useRef(null); // ref to scroll to books grid
   const [selectedGenreId, setSelectedGenreId] = useState(null);
   const selectedGenre = genres.find((g) => g.id === selectedGenreId);
+  const [error, setError] = useState("")
 
   const handleContributeBook = async () => {
+    setError("");
     try {
       // Create request data from form state
       const bookData = {
@@ -102,15 +104,15 @@ function Discover() {
         const errorData = error.response.data;
         const firstKey = Object.keys(errorData)[0];
         const firstMessage = errorData[firstKey][0];
-        alert(`Error: ${firstMessage}`);
+        setError(`Error: ${firstMessage}`);
       } else if (error.request) {
         // The request was made but no response was received
         console.error("No response received:", error.request);
-        alert("No response from server. Check your network connection.");
+        setError("No response from server. Check your network connection.");
       } else {
         // Something happened in setting up the request
         console.error("Error setting up request:", error.message);
-        alert(`Error: ${error.message}`);
+        setError(`Error: ${error.message}`);
       }
     }
   };
@@ -201,6 +203,7 @@ function Discover() {
         onClose={() => {
           setDialogOpen(false);
           disposeState();
+          setError("");
         }}
         sx={{
           "& .MuiDialog-paper": {
@@ -213,6 +216,11 @@ function Discover() {
       >
         <div className="contribute-container">
           <h1>Contribute a book</h1>
+          {error && (
+            <div className="error-message">
+              {error}
+            </div>
+          )}
           <form
             style={{
               gap: "1.25rem",

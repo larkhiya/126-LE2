@@ -12,6 +12,7 @@
   justify-content: space-between;
   min-height: 43.75rem; /* 700px */
   height: 100%;
+  width: 100%;
 }
 
 .discover-books {
@@ -164,7 +165,7 @@
   }
 
   .books-container {
-    min-height: calc(100vh - 11.25rem); /* 180px */
+    min-height: 23.75rem; /* 180px */
   }
 
   .discover-books.not-found {
@@ -198,7 +199,7 @@
 
 @media screen and (min-width: 48rem) and (max-width: 63.9375rem) and (orientation: portrait) {
   .books-container {
-    min-height: 85vh;
+    min-height: 65vh;
   }
 
   .pagination-controls {
@@ -208,7 +209,7 @@
 
 @media screen and (min-width: 48rem) and (max-width: 63.9375rem) and (orientation: landscape) {
   .books-container {
-    min-height: 75vh;
+    min-height: 65vh;
   }
 
   .pagination-controls {
