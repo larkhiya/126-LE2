@@ -4,10 +4,7 @@ import LabelInput from "./components/Labelnput";
 import ActionButton from "../Buttons/ActionButton";
 import StarIcon from "@mui/icons-material/Star";
 import MenuButton from "../Buttons/MenuButton.js";
-import {
-  MessageCircleMore, PlayIcon, PlusIcon,
-  Send,
-} from "lucide-react";
+import { MessageCircleMore, PlayIcon, PlusIcon, Send } from "lucide-react";
 import LabelTextArea from "./components/LabelTextArea.js";
 import { useNavigate, useParams } from "react-router-dom";
 import { CircularProgress, Dialog, Rating, TextField } from "@mui/material";
@@ -708,24 +705,26 @@ function BookDetails2() {
       >
         <div className="edit-dialog">
           <div className="edit-dialog-header">
-            <h2>Edit Your Review</h2>
+            <h1>Edit Your Review</h1>
           </div>
           <div className="rating">
             <Rating
-              sx={{
-                fontSize: {
-                  xs: "2rem",
-                  sm: "2rem",
-                  md: "3rem",
-                  lg: "3rem",
-                },
-              }}
               name="edit-rating"
               value={editRating}
               onChange={(event, newValue) => {
                 setEditRating(newValue);
               }}
-              />
+              sx={{
+                "& .MuiRating-icon": {
+                  fontSize: {
+                    xs: "2rem",
+                    sm: "2rem",
+                    md: "3rem",
+                    lg: "3rem",
+                  },
+                },
+              }}
+            />
           </div>
           <div className="edit-content-wrapper">
             <LabelInput
@@ -892,17 +891,18 @@ function BookDetails2() {
                     </div>
                     <div className="rating">
                       <Rating
-                        sx={{
-                          fontSize: {
-                            xs: "2rem",
-                            sm: "2rem",
-                            md: "3rem",
-                            lg: "3rem",
-                          },
-                        }}
                         value={userReview.rating}
                         readOnly
-                        size="large"
+                        sx={{
+                          "& .MuiRating-icon": {
+                            fontSize: {
+                              xs: "2rem",
+                              sm: "2rem",
+                              md: "3rem",
+                              lg: "3rem",
+                            },
+                          },
+                        }}
                       />
                     </div>
                     <div className="review-title">
@@ -923,17 +923,20 @@ function BookDetails2() {
                     <h2>What do you think about this book?</h2>
                     <div className="rating">
                       <Rating
-                      sx={{
-                        fontSize: {
-                          xs: "2rem",
-                          sm: "2rem",
-                          md: "3rem",
-                          lg: "3rem",
-                        },
-                      }}
-                        value={rating}
+                        name="edit-rating"
+                        value={editRating}
                         onChange={(event, newValue) => {
                           setRating(newValue);
+                        }}
+                        sx={{
+                          "& .MuiRating-icon": {
+                            fontSize: {
+                              xs: "2rem",
+                              sm: "2rem",
+                              md: "3rem",
+                              lg: "3rem",
+                            },
+                          },
                         }}
                       />
                     </div>
