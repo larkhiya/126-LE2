@@ -123,6 +123,7 @@ function NavBar({}) {
             style={{ height: "100%" }}
           >
             <Box display="flex" flexDirection="column" gap="1rem">
+              <h1>Biblion</h1>
               <Link
                 to="/"
                 style={{ textDecoration: "none" }}
