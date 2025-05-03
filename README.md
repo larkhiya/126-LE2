@@ -34,11 +34,10 @@ It allows users to share reviews, leave comments, track their reading journey, a
 
 ### Core Concepts Demonstrated
 
-- User authentication and profile management
-- Relational models (Users ↔ Books ↔ Reviews ↔ Comments)
-- Form handling and validation
-- Review rating system
-- Dynamic views, search functionality, and pagination
+- Implementation of full CRUD operations (Create, Read, Update, Delete) for books, reviews, and comments
+- User authentication and session-based access control
+- Relational data modeling using Django ORM (Users ↔ Books ↔ Reviews ↔ Comments)
+- Form validation and error handling using Django and React
 
 ---
 
@@ -169,20 +168,6 @@ Follow the steps below to get the project running locally:
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 
 
 
