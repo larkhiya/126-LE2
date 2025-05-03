@@ -111,7 +111,7 @@ Follow the steps below to get the project running locally:
 * Clone the repository to your local machine:
    ```sh
    git clone https://github.com/github_username/repo_name.git
-   ```
+   ```     
 2. Set up the Frontend (React)
 
 * Navigate to the frontend directory and install the required npm packages:
