@@ -923,8 +923,8 @@ function BookDetails2() {
                     <h2>What do you think about this book?</h2>
                     <div className="rating">
                       <Rating
-                        name="edit-rating"
-                        value={editRating}
+                        name="rating"
+                        value={rating}
                         onChange={(event, newValue) => {
                           setRating(newValue);
                         }}
