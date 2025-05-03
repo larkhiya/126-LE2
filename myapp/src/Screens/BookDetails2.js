@@ -17,6 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import StatusButton from "../Buttons/StateButton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CommentBankIcon from "@mui/icons-material/CommentBank";
 
 function BookDetails2() {
   const { id } = useParams();
@@ -551,18 +552,18 @@ function BookDetails2() {
             borderRadius: "10px",
             width: "100%",
             maxWidth: "20rem",
-            padding: "1.5rem",
+            padding: "1rem",
           },
         }}
       >
-        <div className="delete-comment-dialog">
-          <h2>Delete Comment</h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <h1>Delete comment?</h1>
           <p>
-            Are you sure you want to delete your comment?{" "}
-            <strong>This action cannot be undone.</strong>
+            Are you sure you want to delete your comment? This action cannot be
+            undone.
           </p>
 
-          <div className="delete-buttons-container">
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
             <OutlineButton
               label="Cancel"
               onClick={() => setDeleteCommentDialog(false)}
@@ -589,24 +590,26 @@ function BookDetails2() {
         onClose={() => setDeleteReviewDialog(false)}
         sx={{
           "& .MuiDialog-paper": {
+            justifyContent: "center",
+            alignItems: "center",
             backgroundColor: "#fce5dd",
             borderRadius: "10px",
             width: "100%",
             maxWidth: "20rem",
-            padding: "1.5rem",
+            padding: "1rem",
           },
         }}
       >
         <div className="delete-review-dialog">
-          <h2>Delete Review</h2>
+          <h1>Delete review?</h1>
           <p>
-            Are you sure you want to delete your review?{" "}
-            <strong>This action cannot be undone.</strong>
+            Are you sure you want to delete your review? This action cannot be
+            undone.
           </p>
 
-          <div className="delete-buttons-container">
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
             <OutlineButton
-              label="Discard"
+              label="Cancel"
               onClick={() => setDeleteReviewDialog(false)}
             />
             <ActionButton
@@ -745,7 +748,14 @@ function BookDetails2() {
             />
           </div>
 
-          <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
+          <div
+            style={{
+              display: "flex",
+              gap: "1rem",
+              marginTop: "1rem",
+              justifyContent: "space-between",
+            }}
+          >
             <OutlineButton
               label="Cancel"
               onClick={() => setEditReviewDialog(false)}
@@ -771,44 +781,44 @@ function BookDetails2() {
           </div>
 
           {user && (
-          <div className="button-group">
-            <ActionButton
-              icon={
-                !userBookStatus ? (
-                  <AddIcon
-                    sx={{
-                      color: "white",
-                      fontSize: {
-                        xs: "1rem",
-                        sm: "1rem",
-                        md: "1.2rem",
-                        lg: "1.2rem",
-                      },
-                    }}
-                  />
-                ) : (
-                  <ExpandMoreIcon
-                    sx={{
-                      color: "white",
-                      fontSize: {
-                        xs: "1rem",
-                        sm: "1rem",
-                        md: "1.6rem",
-                        lg: "1.6rem",
-                      },
-                    }}
-                  />
-                )
-              }
-              label={shelfLabel}
-              stretched={true}
-              onClick={() => setbookStateDialog(true)}
-              disabled={updatingStatus}
-            />
+            <div className="button-group">
+              <ActionButton
+                icon={
+                  !userBookStatus ? (
+                    <AddIcon
+                      sx={{
+                        color: "white",
+                        fontSize: {
+                          xs: "1rem",
+                          sm: "1rem",
+                          md: "1.2rem",
+                          lg: "1.2rem",
+                        },
+                      }}
+                    />
+                  ) : (
+                    <ExpandMoreIcon
+                      sx={{
+                        color: "white",
+                        fontSize: {
+                          xs: "1rem",
+                          sm: "1.6rem",
+                          md: "1.6rem",
+                          lg: "1.6rem",
+                        },
+                      }}
+                    />
+                  )
+                }
+                label={shelfLabel}
+                stretched={true}
+                onClick={() => setbookStateDialog(true)}
+                disabled={updatingStatus}
+              />
 
-            {isContributed && (
-              <div className="button-group2">
-                {/* <ActionButton
+              {isContributed && (
+                <div className="button-group2">
+                  {/* <ActionButton
                   iconOnly={true}
                   icon={
                     <EditIcon
@@ -828,29 +838,29 @@ function BookDetails2() {
                   stretched={true}
                 /> */}
 
-                <ActionButton
-                  iconOnly={true}
-                  icon={
-                    <DeleteIcon
-                      className="icon-button"
-                      sx={{
-                        fontSize: {
-                          xs: "1rem",
-                          sm: "1rem",
-                          md: "1.2rem",
-                          lg: "1.2rem",
-                        },
-                      }}
-                    />
-                  }
-                  onClick={() => {
-                    setDeleteConfirmation(true);
-                  }}
-                  stretched={true}
-                />
-              </div>
-            )}
-          </div>
+                  <ActionButton
+                    iconOnly={true}
+                    icon={
+                      <DeleteIcon
+                        className="icon-button"
+                        sx={{
+                          fontSize: {
+                            xs: "1rem",
+                            sm: "1.2rem",
+                            md: "1.2rem",
+                            lg: "1.2rem",
+                          },
+                        }}
+                      />
+                    }
+                    onClick={() => {
+                      setDeleteConfirmation(true);
+                    }}
+                    stretched={true}
+                  />
+                </div>
+              )}
+            </div>
           )}
 
           <div className="rating">
@@ -859,7 +869,10 @@ function BookDetails2() {
             </p>
             <StarIcon sx={{ color: "#FFD53D", fontSize: 20 }} />
             <p style={{ padding: "0 8px" }}>|</p>
-            <p>{book.review_count} {book.review_count === 1 ? 'review' : 'reviews'}</p>
+            <p>
+              {book.review_count}{" "}
+              {book.review_count === 1 ? "review" : "reviews"}
+            </p>
           </div>
 
           <p>{book.synopsis}</p>
@@ -906,7 +919,9 @@ function BookDetails2() {
                       />
                     </div>
                     <div className="review-title">
-                      {userReview.title && <p>{userReview.title}</p>}
+                      {userReview.title && (
+                        <p style={{ fontWeight: "500" }}>{userReview.title}</p>
+                      )}
                     </div>
                     <p className="review-text">{userReview.text}</p>
                     <div className="edit-button-container">
@@ -972,9 +987,7 @@ function BookDetails2() {
               </div>
             </>
           ) : (
-            <p>
-              Please sign in to leave a review.
-            </p>
+            <p>Please sign in to leave a review.</p>
           )}
 
           <hr className="divider" />
@@ -998,10 +1011,12 @@ function BookDetails2() {
                   </div>
 
                   <div className="rating">
-                    <Rating value={review.rating} readOnly size="large" />
-                  </div>
-                  <div className="review-title">
-                    {review.title && <p>{review.title}</p>}
+                    <Rating
+                      value={review.rating}
+                      sx={{
+                        fontSize: "18px",
+                      }}
+                    />
                   </div>
 
                   {review.title && (
@@ -1021,7 +1036,16 @@ function BookDetails2() {
                     className="comments-toggle-button"
                     onClick={() => toggleComments(review.id)}
                   >
-                    <MessageCircleMore size={16} />
+                    <CommentBankIcon
+                      sx={{
+                        fontSize: {
+                          xs: "1rem",
+                          sm: "1rem",
+                          md: "1.2rem",
+                          lg: "1.2rem",
+                        },
+                      }}
+                    />
                     <span>
                       {review.comments && review.comments.length > 0
                         ? `${

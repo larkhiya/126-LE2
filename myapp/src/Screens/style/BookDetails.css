@@ -400,7 +400,7 @@ h2 {
   background: #fff3c9;
   background-image: url("/public/images/user-profile.svg");
   background-repeat: no-repeat;
-  background-size: cover; /* or 'cover' depending on the effect you want */
+  background-size: contain; /* or 'cover' depending on the effect you want */
   background-position: center;
 }
 
@@ -759,17 +759,21 @@ button {
     max-width: 100%;
   }
 
-  .book-info-container {
-    margin: 0rem 1rem;
-  }
+  
 
   .add-comment-input {
     padding: 0.25rem 0.5rem;
     margin: 0;
   }
 
-
 }
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .book-info-container {
+    margin: 0rem 2rem;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .book-details-page h2 {
     font-size: 1.25rem;
@@ -797,12 +801,14 @@ button {
 
   .book-info-container {
     gap: 0.6rem;
+    margin: 0rem 1rem;
   }
 
   .avatar {
     width: 2rem;
     height: 2rem;
     border: 1.5px solid #d77676;
+    border-radius: 0.325rem;
   }
 
   .add-comment-input {
@@ -844,8 +850,7 @@ button {
 }
 
 .comments-toggle-button:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  color: #333;
+  color: #d96b63;
 }
 
 /* Dropdown Menu */
@@ -938,10 +943,7 @@ button {
   padding: 2px;
 }
 
-/* If you need to adjust the position of the MenuButton */
-.comment-date-actions .MuiMenu-paper {
-  min-width: 120px;
-}
+
 
 
 .dialog-title {

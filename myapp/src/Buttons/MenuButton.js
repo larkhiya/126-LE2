@@ -11,7 +11,7 @@ const ITEM_HEIGHT = 48;
 export default function MenuButton({ onDeleteClick }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -50,8 +50,10 @@ export default function MenuButton({ onDeleteClick }) {
           paper: {
             style: {
               maxHeight: ITEM_HEIGHT * 4.5,
+              boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.08)",
+              border: "1px solid #d77676",
+              marginTop: "5px",
               width: "auto",
-              boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.08)',
             },
           },
         }}
@@ -63,14 +65,11 @@ export default function MenuButton({ onDeleteClick }) {
           vertical: "top",
           horizontal: "right",
         }}
-        disablePortal 
+        disablePortal
       >
         {options.map((option) => (
-          <MenuItem
-            key={option}
-            onClick={() => handleMenuItemClick(option)}
-          >
-            {option}
+          <MenuItem key={option} onClick={() => handleMenuItemClick(option)}>
+            <p style={{color:'#D77676'}}>{option}</p>
           </MenuItem>
         ))}
       </Menu>

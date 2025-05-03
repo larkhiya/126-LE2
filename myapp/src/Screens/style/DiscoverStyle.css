@@ -154,8 +154,7 @@
 
   .discover-books {
     grid-template-columns: repeat(3, 1fr);
-    width: 100%;
-    max-width: 21.25rem;
+    width: 21.25rem;
     grid-auto-rows: min-content;
     gap: 1rem;
   }
@@ -166,6 +165,7 @@
 
   .books-container {
     min-height: 23.75rem; /* 180px */
+    width: 100%;
   }
 
   .discover-books.not-found {
@@ -180,12 +180,12 @@
     flex-direction: column;
     justify-content: space-between;
     min-height: 43.75rem;
+    width: 100%;
   }
 
   .discover-books {
     grid-template-columns: repeat(4, 1fr);
-    width: 100%;
-    max-width: 41.25rem;
+    width: 41.25rem;
     flex-grow: 1;
     display: grid;
     align-content: start;
@@ -200,6 +200,7 @@
 @media screen and (min-width: 48rem) and (max-width: 63.9375rem) and (orientation: portrait) {
   .books-container {
     min-height: 65vh;
+    width: 100%;
   }
 
   .pagination-controls {
@@ -210,6 +211,7 @@
 @media screen and (min-width: 48rem) and (max-width: 63.9375rem) and (orientation: landscape) {
   .books-container {
     min-height: 65vh;
+    width: 100%;
   }
 
   .pagination-controls {

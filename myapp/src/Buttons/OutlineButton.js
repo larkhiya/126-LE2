@@ -15,6 +15,7 @@ export default function OutlineButton({ icon, onClick, label, onIconTap }) {
 
   return (
     <button className="outline-button" onClick={onClick}>
+      {icon &&(
       <div
         style={{
           display: "flex",
@@ -26,6 +27,8 @@ export default function OutlineButton({ icon, onClick, label, onIconTap }) {
       >
         {icon}
       </div>
+      )}
+      
       <p>{label}</p>
     </button>
   );

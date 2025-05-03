@@ -76,11 +76,19 @@ export const DataProvider = ({ children }) => {
       );
 
       // Adjust based on your backend response keys
+      const uniqueBooksMap = new Map();
       setContributedBooks(response.data.contributed || []);
       setWantBooks(response.data.want || []);
       setReadBooks(response.data.read || []);
       setReadingBooks(response.data.reading || []);
-      setRecommendedBooks(response.data.recommendations || []);
+
+      (response.data.recommendations || []).forEach(book => {
+        if (!uniqueBooksMap.has(book.id)) {
+          uniqueBooksMap.set(book.id, book);
+        }
+      });
+      
+      setRecommendedBooks(Array.from(uniqueBooksMap.values()).slice(0, 5));
 
       return response.data;
     } catch (error) {
