@@ -6,12 +6,16 @@ export default function ActionButton({
   onClick,
   label,
   disabled,
-  stretched
+  stretched,
+  className
 }) {
+  const baseClass = stretched ? "filled-button stretched" : "filled-button";
+  const combinedClassName = className ? `${baseClass} ${className}` : baseClass;
+
   return (
-    <button className={stretched ? 'filled-button stretched' : 'filled-button'} onClick={onClick} disabled={disabled}>
-        {icon}
-        <p>{label}</p>
+    <button className={combinedClassName} onClick={onClick} disabled={disabled}>
+      {icon}
+      <p>{label}</p>
     </button>
   );
 }

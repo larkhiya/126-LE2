@@ -3,6 +3,7 @@ import * as React from "react";
 export default function LabelInput({
   label,
   placeholder,
+  value,
   onChange,
   outlined,
   required = true,
@@ -24,7 +25,7 @@ export default function LabelInput({
           *
         </span>
       </small>
-      <input placeholder={placeholder} onChange={onChange}></input>
+      <input placeholder={placeholder} value={value} onChange={onChange}></input>
     </div>
   );
 }
