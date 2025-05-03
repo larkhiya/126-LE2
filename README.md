@@ -14,15 +14,9 @@
 
   <p align="center">
     A dynamic platform where book lovers can connect, share reviews, and discover trending reads!
-    <br />
-    <a href="https://github.com/your_username/Biblion"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/your_username/Biblion">View Demo</a>
-    ·
-    <a href="https://github.com/your_username/Biblion/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/your_username/Biblion/issues">Request Feature</a>
+    <br/>
+    <br/>
+    <br/>
   </p>
 </div>
 
@@ -223,8 +217,8 @@ Thanks to these amazing people for bringing **Biblion** to life!
 - **Al Glenrey Tilacas** — [aatilacas@up.edu.ph](mailto:aatilacas@up.edu.ph)
 
 Project Link:
-FrontEnd: https://github.com/larkhiya/126-LE2-frontend
-BackEnd: https://github.com/ethanny/126-LE2-BACKEND
+* FrontEnd: https://github.com/larkhiya/126-LE2-frontend
+* BackEnd: https://github.com/ethanny/126-LE2-BACKEND
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
