@@ -32,7 +32,7 @@
 **Biblion** is a collaborative platform for book enthusiasts.  
 It allows users to share reviews, leave comments, track their reading journey, and find trending books based on ratings and activity.
 
-### ✨ Core Concepts Demonstrated
+### Core Concepts Demonstrated
 
 - User authentication and profile management
 - Relational models (Users ↔ Books ↔ Reviews ↔ Comments)
@@ -42,26 +42,26 @@ It allows users to share reviews, leave comments, track their reading journey, a
 
 ---
 
-## 🚀 Features
+## Features
 
-### 🔐 User Login and Registration
+### User Login and Registration
 - Secure registration and login via Django’s auth system
 - Personalized user profiles showcasing reviews and reading history
 
-### 📚 Book Database and Search
+### Book Database and Search
 - Add new books (title, author, genre, cover image URL)
 - Browse and search books by title, author, or genre
 
-### ✍️ Add/Edit/Delete Reviews
+### Add/Edit/Delete Reviews
 - Create reviews with a text body, optional title, and 1–5 star rating
 - Edit or delete your own reviews
 - View average ratings per book
 
-### 💬 Comment on Reviews
+### Comment on Reviews
 - Comment on any review to discuss, agree, or recommend other books
 - Delete your own comments with basic moderation tools
 
-### 📈 Trending Books & Top Reviewers
+### Trending Books & Top Reviewers
 - Landing page highlights:
   - Books with the highest average ratings
   - Most reviewed books
@@ -81,7 +81,7 @@ It allows users to share reviews, leave comments, track their reading journey, a
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-## 📦 Getting Started
+## Getting Started
 
 ### Prerequisites
 
