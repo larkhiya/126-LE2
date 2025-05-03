@@ -119,6 +119,12 @@
   color: white;
 }
 
+.pagination-controls button:disabled {
+  opacity: 0;
+  cursor: not-allowed;
+  pointer-events: none; 
+}
+
 .empty-book-slot {
   visibility: hidden;
   min-height: 18rem;
@@ -128,6 +134,7 @@
   height: 2.5rem;
   width: 100%;
 }
+
 
 .filter-button{
   padding: 0.5rem 1rem;

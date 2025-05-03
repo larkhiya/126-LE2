@@ -448,31 +448,62 @@ function Discover() {
             )}
           </div>
 
-          {/* Pagination controls - always in the same position */}
+          {/* Pagination controls with sliding window - always showing 2 page numbers */}
           <div className="pagination-controls">
             {filteredBooks.length > booksPerPage ? (
               <>
+                {/* Left chevron button - always visible but disabled on page 1 */}
                 <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.max(prev - 1, 1))
-                  }
+                  className="chevron-button"
+                  onClick={() => {
+                    // Go to previous page
+                    setCurrentPage((prev) => Math.max(prev - 1, 1));
+                  }}
                   disabled={currentPage === 1}
                 >
                   <ChevronLeftIcon fontSize="inherit" />
                 </button>
-                {Array.from({ length: totalPages }, (_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrentPage(i + 1)}
-                    className={currentPage === i + 1 ? "active" : ""}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                
+                {/* Calculate which 2 page numbers to show */}
+                {(() => {
+                  // If we're on page 1, show pages 1 and 2
+                  // If we're on the last page, show the last 2 pages
+                  // Otherwise, show currentPage and currentPage+1
+                  let startPage = currentPage;
+                  
+                  // Adjust if we'd show an incomplete window at the end
+                  if (startPage === totalPages) {
+                    startPage = Math.max(1, totalPages - 1);
                   }
+                  
+                  // Create array of pages to display (at most 2)
+                  const pagesToShow = [];
+                  for (let i = 0; i < 2; i++) {
+                    const pageNum = startPage + i;
+                    if (pageNum <= totalPages) {
+                      pagesToShow.push(pageNum);
+                    }
+                  }
+                  
+                  // Return the page buttons
+                  return pagesToShow.map((pageNum) => (
+                    <button
+                      key={pageNum}
+                      onClick={() => setCurrentPage(pageNum)}
+                      className={currentPage === pageNum ? "active" : ""}
+                    >
+                      {pageNum}
+                    </button>
+                  ));
+                })()}
+                
+                {/* Right chevron button - always visible but disabled on last page */}
+                <button
+                  className="chevron-button"
+                  onClick={() => {
+                    // Go to next page
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+                  }}
                   disabled={currentPage === totalPages}
                 >
                   <ChevronRightIcon fontSize="inherit" />
