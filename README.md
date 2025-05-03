@@ -81,21 +81,18 @@ It allows users to share reviews, leave comments, track their reading journey, a
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-## Getting Started
-
-### Prerequisites
-
-- Python 3.10+
-- Node.js 18+
-
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy up and running follow these simple example steps.
+To get a local copy up and running, follow these steps.
 
 ### Prerequisites
-You’ll need to install the following software:
+
+You’ll need the following installed on your system:
+
+- Python 3.10+
+- Node.js 18+
+- npm (comes with Node.js)
 
 If you don’t have Node.js and npm installed, you can install them by running:
   ```sh
