@@ -57,35 +57,24 @@ It allows users to share reviews, leave comments, track their reading journey, a
   - **Contributed Books**
 - Export entire shelf to a downloadable CSV file
 - Personalized user page displaying reading activity and contributions
-<div align="center">
-    <img src="myapp/public/images/myshelf.png" alt="myshelf" width="500" height="800" >
-</div>
+<div><img src="myapp/public/images/myshelf.png" alt="myshelf" width=50% height=auto ></div>
 
 
 ### Book Database and Search
 - Add new books (title, author, genre, synopsis, cover image URL)
-  <div align="center">
-    <img src="myapp/public/images/addbook.png" alt="books" width="500" height="800" >
-</div>
+  <div><img src="myapp/public/images/addbook.png" alt="review" style="width:40%; height:auto;" ></div>
 - Browse and search books by title or author. Filter books by genre.
-  <div align="center">
-    <img src="myapp/public/images/browsebook.png" alt="books" width="500" height="800" >
-</div>
+  <div><img src="myapp/public/images/browsebook.png" alt="review" style="width:40%; height:auto;" ></div>
 
 
 ### Add/Edit/Delete Reviews
 - Create reviews with a text body, optional title, and 1–5 star rating
-  <div align="center">
-    <img src="myapp/public/images/creatervw.png" alt="review" width="500" height="800" >
-</div>
+  <div><img src="myapp/public/images/creatervw.png" alt="review" style="width:40%; height:auto;"></div>
 - Edit or delete your own reviews
-<div align="center">
-    <img src="myapp/public/images/deletervw.png" alt="review" width="500" height="800" >
-</div>
+  <div> <img src="myapp/public/images/deletervw.png" alt="review" style="width:40%; height:auto;" >  </div>
 - View average ratings per book
-<div align="center">
-    <img src="myapp/public/images/average.png" alt="review" width="500" height="800" >
-</div>
+    <div> <img src="myapp/public/images/average.png" alt="review" style="width:40%; height:auto;"> </div>
+
 
 
 
@@ -93,9 +82,8 @@ It allows users to share reviews, leave comments, track their reading journey, a
 - Comment on any review to discuss, agree, or recommend other books
 - Delete your own comments with basic moderation tools
   
-  <div align="center">
-    <img src="myapp/public/images/comment.png" alt="comment" width="500" height="800" >
-</div>
+  <div>
+    <img src="myapp/public/images/comment.png" alt="comment" style="width:40%; height:auto;" ></div>
 
 ### Trending Books & Top Reviewers
 - Landing page highlights:
@@ -103,9 +91,7 @@ It allows users to share reviews, leave comments, track their reading journey, a
   - Most reviewed books
   - Most active users (Top reviewers)
   - Recommended Books (Based on the user's top read genre)
- <div align="center">
-    <img src="myapp/public/images/home.png" alt="home" width="500" height="800" >
-</div>
+ <div><img src="myapp/public/images/home.png" alt="home" width="500" height="800" ></div>
 
 ### User-Restricted Actions
 - Users must be logged in to:
