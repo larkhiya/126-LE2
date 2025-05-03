@@ -80,7 +80,7 @@ export const DataProvider = ({ children }) => {
       setWantBooks(response.data.want || []);
       setReadBooks(response.data.read || []);
       setReadingBooks(response.data.reading || []);
-      setRecommendedBooks(response.data.recommended || []);
+      setRecommendedBooks(response.data.recommendations || []);
 
       return response.data;
     } catch (error) {

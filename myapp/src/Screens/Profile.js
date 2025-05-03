@@ -7,7 +7,7 @@ import ActionButton from "../Buttons/ActionButton.js";
 import SaveAltIcon from "@mui/icons-material/SaveAlt";
 
 export default function Profile() {
-  const { profile, contributedBooks, readBooks, readingBooks, wantBooks, recommendedBooks } =
+  const { profile, contributedBooks, readBooks, readingBooks, wantBooks } =
     useData();
 
   function exportBooksToCSV() {
@@ -72,6 +72,7 @@ export default function Profile() {
 
         <div className="user-shelf">
           <h1>{profile.full_name}'s Shelf</h1>
+
           <div className="shelf-section">
             <h2>Contributed books</h2>
             <div className="book-row">

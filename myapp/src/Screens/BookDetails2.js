@@ -374,6 +374,7 @@ function BookDetails2() {
             <h2>{book.author}</h2>
           </div>
 
+          {user && (
           <div className="button-group">
             <ActionButton
               icon={
@@ -454,6 +455,7 @@ function BookDetails2() {
               </div>
             )}
           </div>
+          )}
 
           <div className="rating">
             <p>
@@ -461,7 +463,7 @@ function BookDetails2() {
             </p>
             <StarIcon sx={{ color: "#FFD53D", fontSize: 20 }} />
             <p style={{ padding: "0 8px" }}>|</p>
-            <p>{book.review_count} reviews</p>
+            <p>{book.review_count} {book.review_count === 1 ? 'review' : 'reviews'}</p>
           </div>
 
           <p>{book.synopsis}</p>
@@ -520,7 +522,7 @@ function BookDetails2() {
             </>
           ) : (
             <p>
-              <strong>Please sign in to leave a review.</strong>
+              Please sign in to leave a review.
             </p>
           )}
 

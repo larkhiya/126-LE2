@@ -17,7 +17,7 @@ function Book({ labelType, book, showLabel = true }) {
       );
       break;
     case "review":
-      label = `${book.review_count} reviews`;
+      label = `${book.review_count} review${book.review_count === 1 ? '' : 's'}`;
       break;
     default:
       label = book.author;
