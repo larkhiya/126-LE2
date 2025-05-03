@@ -1,11 +1,11 @@
-import { React, useState, useEffect, useRef, useContext } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import "./style/DiscoverStyle.css";
 import "./style/SearchStyle.css";
 import "./style/InputStyle.css";
 import ActionButton from "../Buttons/ActionButton";
 import AddIcon from "@mui/icons-material/Add";
 import Book from "./components/Book";
-import { Autocomplete, Checkbox, Dialog, Menu } from "@mui/material";
+import { Dialog, Menu } from "@mui/material";
 import OutlineButton from "../Buttons/OutlineButton";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import SearchBar from "./components/SearchBar";
@@ -15,18 +15,9 @@ import LabelTextArea from "./components/LabelTextArea";
 import { useData } from "../context/DataContext";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import axios from "axios";
-import AuthContext from "../context/AuthContext";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import TextField from "@mui/material/TextField";
-
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 function Discover() {
-  const { books, refreshBooks, genres } = useData();
-  const { authTokens } = useContext(AuthContext);
+  const { books } = useData();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [openDialog, setDialogOpen] = useState(false);
@@ -37,7 +28,6 @@ function Discover() {
   const [author, setAuthor] = useState("");
   const [synopsis, setSynopsis] = useState("");
   const [coverUrl, setCoverUrl] = useState("");
-  const [selectedGenres, setSelectedGenres] = useState([]);
 
   const [booksPerPage, setBooksPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,66 +35,6 @@ function Discover() {
 
   const booksRef = useRef(null); // ref to scroll to books grid
 
-  const handleContributeBook = async () => {
-    try {
-      // Create request data from form state
-      const bookData = {
-        title: title,
-        author: author,
-        synopsis: synopsis,
-        cover_url: coverUrl,
-        genres: selectedGenres.map((genre) => genre.id),
-      };
-
-      console.log("Sending book data:", bookData); // Debug logging
-
-      // Make POST request to your Django API with correct token
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/books/",
-        bookData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + String(authTokens.access),
-          },
-        }
-      );
-
-      // Handle successful creation
-      console.log("Book added successfully:", response.data);
-
-      // Reset form and close dialog
-
-      refreshBooks();
-      setDialogOpen(false);
-      disposeState();
-
-      // Optional: Refresh the book list or trigger a refresh
-      // You may want to call a function to refresh the books list here
-    } catch (error) {
-      // Enhanced error logging
-      console.error("Error adding book:", error);
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.error("Response data:", error.response.data);
-        console.error("Status code:", error.response.status);
-        // if(error.response.data == 'Enter a valid URL.'){}
-        const errorData = error.response.data;
-        const firstKey = Object.keys(errorData)[0];
-        const firstMessage = errorData[firstKey][0];
-        alert(`Error: ${firstMessage}`);
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.error("No response received:", error.request);
-        alert("No response from server. Check your network connection.");
-      } else {
-        // Something happened in setting up the request
-        console.error("Error setting up request:", error.message);
-        alert(`Error: ${error.message}`);
-      }
-    }
-  };
   // Get booksPerPage from CSS variable and track window width
   useEffect(() => {
     const updateBooksPerPage = () => {
@@ -139,8 +69,7 @@ function Discover() {
     title.trim() &&
     author.trim() &&
     coverUrl.trim() &&
-    synopsis.trim() &&
-    selectedGenres.length != 0
+    synopsis.trim()
   );
 
   const filteredBooks = books
@@ -219,40 +148,12 @@ function Discover() {
             />
           </form>
 
-          <Autocomplete
-            multiple
-            onChange={(event, newValue) => setSelectedGenres(newValue)}
-            id="checkboxes-tags-demo"
-            options={genres}
-            disableCloseOnSelect
-            getOptionLabel={(option) => option.name}
-            renderOption={(props, option, { selected }) => {
-              const { key, ...optionProps } = props;
-              return (
-                <li key={key} {...optionProps}>
-                  <Checkbox
-                    icon={icon}
-                    checkedIcon={checkedIcon}
-                    style={{ marginRight: 8 }}
-                    checked={selected}
-                  />
-                  {option.name}
-                </li>
-              );
-            }}
-            style={{ width: 500 }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Checkboxes"
-                placeholder="Favorites"
-              />
-            )}
-          />
-
           <ActionButton
             stretched="true"
-            onClick={handleContributeBook}
+            onClick={() => {
+              setDialogOpen(false);
+              disposeState();
+            }}
             label="Contribute"
             disabled={isButtonDisabled}
           />
@@ -328,39 +229,75 @@ function Discover() {
           </div>
 
           {/* Pagination controls - always in the same position */}
-          <div className="pagination-controls">
-            {filteredBooks.length > booksPerPage ? (
-              <>
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.max(prev - 1, 1))
-                  }
-                  disabled={currentPage === 1 || totalPages < 3}
-                >
-                  <ChevronLeftIcon fontSize="inherit" />
-                </button>
-                {Array.from({ length: totalPages }, (_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrentPage(i + 1)}
-                    className={currentPage === i + 1 ? "active" : ""}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-                <button
-                  onClick={() =>
-                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-                  }
-                  disabled={currentPage === totalPages || totalPages < 3}
-                >
-                  <ChevronRightIcon fontSize="inherit" />
-                </button>
-              </>
-            ) : (
-              <div className="pagination-placeholder"></div>
-            )}
-          </div>
+          {/* Pagination controls with sliding window - always showing 2 page numbers */}
+<div className="pagination-controls">
+  {filteredBooks.length > booksPerPage ? (
+    <>
+      {/* Left chevron button - only visible when totalPages > 2 */}
+      {totalPages > 2 && (
+        <button
+          className="chevron-button"
+          onClick={() => {
+            // Go to previous page
+            setCurrentPage((prev) => Math.max(prev - 1, 1));
+          }}
+          disabled={currentPage === 1}
+        >
+          <ChevronLeftIcon fontSize="inherit" />
+        </button>
+      )}
+      
+      {/* Calculate which 2 page numbers to show */}
+      {(() => {
+        // If we're on page 1, show pages 1 and 2
+        // If we're on the last page, show the last 2 pages
+        // Otherwise, show currentPage and currentPage+1
+        let startPage = currentPage;
+        
+        // Adjust if we'd show an incomplete window at the end
+        if (startPage === totalPages) {
+          startPage = Math.max(1, totalPages - 1);
+        }
+        
+        // Create array of pages to display (at most 2)
+        const pagesToShow = [];
+        for (let i = 0; i < 2; i++) {
+          const pageNum = startPage + i;
+          if (pageNum <= totalPages) {
+            pagesToShow.push(pageNum);
+          }
+        }
+        
+        // Return the page buttons
+        return pagesToShow.map((pageNum) => (
+          <button
+            key={pageNum}
+            onClick={() => setCurrentPage(pageNum)}
+            className={currentPage === pageNum ? "active" : ""}
+          >
+            {pageNum}
+          </button>
+        ));
+      })()}
+      
+      {/* Right chevron button - only visible when totalPages > 2 */}
+      {totalPages > 2 && (
+        <button
+          className="chevron-button"
+          onClick={() => {
+            // Go to next page
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+          }}
+          disabled={currentPage === totalPages}
+        >
+          <ChevronRightIcon fontSize="inherit" />
+        </button>
+      )}
+    </>
+  ) : (
+    <div className="pagination-placeholder"></div>
+  )}
+</div>
         </div>
       </div>
     </div>

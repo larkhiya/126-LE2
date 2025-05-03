@@ -125,10 +125,6 @@
   pointer-events: none; 
 }
 
-.pagination-controls button:not(:disabled):hover {
-  background-color: rgba(215, 118, 118, 0.1);
-}
-
 .empty-book-slot {
   visibility: hidden;
   min-height: 18rem;
